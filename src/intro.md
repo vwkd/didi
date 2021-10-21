@@ -7,20 +7,43 @@
 - code that defines string match
 - code paths navigate the input string
 - like being in the world of a string
-
-- no flags/modifiers outside of regex, everything is defined within the code
 - no variables since doesn't operate on any other data than input string
 - can think of input string as variable that is implicitly assumed since since is the only one 
+- an expressions is compared to the input string
 
-- expressions are compared to input string
-- nested expressions are chained
-<!-- todo: good idea? -->
-- can think of eating up the input string
+```
+"hello"
+```
+
+- can think of equal comparison where input string variable is implicitly assumed
+
+```js
+inputString == "hello"
+```
+
+- expressions are added together
+- can think of each expression eating up the input string further
+
+```
+"hel" "lo"
+```
+
+- can nest expressions, same as writing in single line, just for readability
+
+```
+"hel" {
+  "lo"
+}
+```
+
+
+
+## Match
+
 - a match is the total string at the end of a code path
 <!-- todo: capture groups? -->
-
 <!-- todo: start, middle, end? -->
-
+<!-- todo: how to do multiple? -> loop x times -->
 - replaces regex multiline flag
 
 
@@ -138,4 +161,11 @@ import mod { url, email }
 
 ```
 // a comment
+
 ```
+
+
+
+## Misc
+
+- no flags/modifiers outside of regex, everything is defined within the code
