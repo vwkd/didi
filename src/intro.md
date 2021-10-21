@@ -1,18 +1,26 @@
 # Intro
 
-Code paths = logic
-Variables = capture groups
-
 Code paths are within string
+Code navigates through string
+Starts at beginning
 
-Input one single string
-Functions are called on that string
+abc def ghi
+/abc (def)/
+$1
 
-input
-a*|b{2,5}
+if („abc „) {
 
-if (input.has(a)) {
-  return input.sequence(„a“).first()
-} else if (input.sequence(„b“, [2,5]).first()) {
-  input.sequence
+if („xyz“) {
+  return
+} else if („def“) {
+  return
+}
+
+}
+
+name
+logical operators in if statement
+
+if („abc „ | „cba „) {
+  return john
 }
