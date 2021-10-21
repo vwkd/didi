@@ -60,3 +60,13 @@ helloOrWorld(1,3)
 
 - can leave of either argument, e.g. `fn(3,)` 3 or more times, `fn(,3)` zero times or at most 3 times
 - built-in functions for character classes, e.g. `space`, `numbers`, `letters`, etc.
+
+
+
+## Module
+
+- can import functions from module, e.g. `url`, `path`, `email`, etc.
+
+```
+import mod { url, email }
+```
