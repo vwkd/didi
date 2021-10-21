@@ -1,6 +1,8 @@
-# README
+# Didi
 
 A programming language for string matching.
+
+Didi means "little brother" in Chinese. A string matching language is a little brother to a programming language.
 
 
 
