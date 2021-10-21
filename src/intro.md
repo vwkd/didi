@@ -7,42 +7,37 @@
 - code paths navigate default string
 - like single default variable, doesn't need to write since is the only data
 - no variables since doesn't operate on any other data than default string
-- start at beginning of default string
 - writes strings to match
 - can think of eating up the original string
 - like in a world inside a string
-- at end of a code path returns the match
-
-
-
-## Return
-
-- returns the match
-- like a capture group
-- note, can return multiple times in different code paths unlike return in other languages
+- at end of a code path returns the whole match
+<!-- todo: capture groups? -->
 
 ```
 "hello"
 ```
 
-<!-- todo: capture group names -->
 
 
+## Branch
 
-## If ... else if
-
-- branching
-- like or
+- a code path
+- eats up that string
+- like or in RegEx
+- like if..elseif
+<!-- todo: lookaheads? don't return whole match by default, instead use variables `if a = "hello" { a + "world" }`? -->
 
 ```
 if "hello" {
-  
-} else if "world" {
-  
+  "world" 
+}
+
+if "hi" {
+  "world" 
 }
 ```
 
-- no else since doesn't make sense, would be empty
+<!-- todo: introduces repetition into every branch -->
 
 
 
@@ -52,7 +47,8 @@ if "hello" {
 
 ```
 function helloOrWorld {
-  // logic here...
+  "hello" {}
+  "world" {}
 }
 ```
 
