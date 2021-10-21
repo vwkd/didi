@@ -9,42 +9,51 @@
 - like being in the world of a string
 - no variables since doesn't operate on any other data than input string
 - can think of input string as variable that is implicitly assumed since since is the only one 
-- an expressions is compared to the input string
+
+
+
+## Expressions
+
+- the total expression of a code path is compared to the input string
 
 ```
 "hello"
 ```
 
-- can think of equal comparison where input string variable is implicitly assumed
-
-```js
-inputString == "hello"
-```
-
-- expressions are added together
-- can think of each expression eating up the input string further
+- multiple expressions in new lines are added together
 
 ```
-"hel" "lo"
+"hel"
+"lo"
 ```
 
-- can nest expressions, same as writing in single line, just for readability
+- always matches against whole string 
+- must explicitly start and end code with `any(,)` to match in middle
+- like regex `^.*hello.*$`
+- replaces regex multiline flag
+
+
+
+## Groups
+
+- nested expressions for adding a sub-match next to the total match
 
 ```
-"hel" {
+"hel"
+{
   "lo"
 }
 ```
 
+- identifier names the group
+- beware: is not a variable, a function is instead, see Functions
 
+```
+first = "hel"
+second = { "lo" }
+```
 
-## Match
-
-- a match is the total string at the end of a code path
-<!-- todo: capture groups? -->
-<!-- todo: start, middle, end? -->
-<!-- todo: how to do multiple? -> loop x times -->
-- replaces regex multiline flag
+- replaces capture groups
 
 
 
@@ -53,15 +62,16 @@ inputString == "hello"
 ### String
 
 - literal expression
+- no escaping necessary, except for quotes themselves
+- for character classes see Functions
 
 ```
 "hello"
 ```
 
-- for character classes see Functions
-- no escaping necessary, except for quotes themselves
-- case-sensitive by default, can make case insensitive
+- case-sensitive by default
 <!-- todo: how to do it case insensitively? methods on object? would be hard for blocks. Function? Would look weird. -->
+- replaces regex case insensitive flag `i`, localised inline modifiers `(?i:...)`
 
 ### Range
 
@@ -144,6 +154,7 @@ if "hi" {
 
 - replaces regex `|`
 <!-- todo: introduces repetition into every branch instead of being confined to capture group? -->
+<!-- todo: does it need `any(,)` in each branch to match middle of input string? -->
 
 
 
@@ -159,10 +170,14 @@ import mod { url, email }
 
 ## Comments
 
+- comment in code
+
 ```
 // a comment
 
 ```
+
+- replaces regex comment group `(?#...)`
 
 
 
