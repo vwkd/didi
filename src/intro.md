@@ -33,14 +33,14 @@
 - must explicitly start and end code with `any(,)` to match in middle
 - like regex `^.*hello.*$`
 - replaces regex multiline flag
-<!-- todo: how to do non-capturing, eating up without creating a match?
 
 
 
 ## Match
 
-- expression is returned as match if it's given an identifier
-- beware: identifier is not a variable, see Functions for variable-like functionality
+- expression is matched if it's given an identifier
+- doesn't match by default, needs to opt-in instead of opt-out
+- implementation must always return possibly multiple matches, e.g. array
 
 ```
 m1 = "hel"
@@ -54,9 +54,10 @@ m2 = {
 }
 ```
 
-- replaces regex capture groups
+- beware: identifier is not a variable, see Block for variable-like functionality
+<!-- todo: name makes no sense if within repeated block since can match multiple times... -->
+- replaces regex capture groups, non-capturing atomic groups
 <!-- todo: does this really cover all grouping functionality of regex? -->
-- implementation must always return possibly multiple matches, e.g. array
 
 
 
@@ -78,22 +79,51 @@ m2 = {
 
 ### Range
 
-- `x..y`
-- only used in function argument
+```
+1..3
+```
+
+- only used in block argument
+- if start is `0` can leave out
+
+```
+..3
+```
+
+- if end is `infinity` can leave out
+
+```
+1..
+```
+
+<!-- todo: allow user to define custom sequence, e.g. odd numbers, etc. would require full-blown programming language? -->
 
 
 
 ## Logic
 
-- negate `!`
+- negation
+
+```
+!
+```
+
+- replaces regex negated character class
 
 
 
-## Functions
+## Block
 
-- reusable expressions
-<!-- todo: difference between branch and expression? -->
-- without arguments is exactly once
+- reusable expression
+
+```
+{
+ "hel"
+ "lo"
+}
+```
+
+- without arguments is used exactly once
 
 ```
 digit
@@ -106,72 +136,64 @@ digit(3)
 ```
 
 - can give sequence for variable repetition
-- optional second argument for greedy/ungreedy, defaults to greedy
+- note, to make optional use sequence that includes `0`
+- if sequence is used can give optional second argument for greedy/ungreedy, defaults to greedy
 
 ```
 digit(1..3, greedy)
 ```
 
-<!-- todo: allow user to define custom sequence, e.g. odd numbers, etc. would require full-blown programming language? -->
 - like regex `?`, `*`, `+`, `{3}`, `{3,}`, `{1,3}` 
-- built-in functions, e.g. `any`, `whitespace`, `digit`, `letter`, etc.
+- built-in blocks, e.g. `any`, `whitespace`, `digit`, `letter`, etc.
 - replaces regex character classes, recurse (sub)pattern
-- can define custom function
+- like loop in programming language
+- can define named block at end of file after any matching expressions
 
 ```
-date = {
+date {
   digit(2) "." digit(2) "." digit(4)
 }
 ```
 
-- can define anonymous custom function that immediately executes, AIIFE
-
-```
-{
-  "he"
-  "lo"
-}
-```
-
-- custom function allows multiple matches
+<!-- todo: multiple matches anywhere in string? can't just use block since requires knowledge of structure... can't just repeat whole thing because fixes start and end
 - replaces regex global flag
+-->
 
 
 
 ## Branch
 
-- a code path
+- conditionally used block
 - condition is compared with input string ahead without eating characters
 - beware: no "else" since only ever one branch is taken for the consumed input string
 
 ```
 if "hello"
 {
-  "world" 
+  "hello" 
 }
 ```
 
+- block can start on same or separate line
+- can also match
+
+```
+if "hello"
+m1 = {
+  "hello"
+}
+```
+
+<!-- todo: needs to wrap in block to match the whole, e.g. `(a|b)`? -->
 - replaces regex lookahead, lookbehind, conditional statement, or
-- for a non-negated condition needs to repeat condition inside to continue branch, necessary otherwise couldn't choose between using match or not, can use function to reuse code
-
-```
-if "a"
-{
-  "a"
-}
-if "b"
-{
-  "b"
-}
-```
-
-- block can start on same line, in separate line just for readability
+- note, for a non-negated condition needs to repeat condition inside to continue branch, otherwise couldn't choose between using match or not
 
 
 
 ## Module
 
-- can import functions from third-party module
+- can import blocks from third-party module
+- promotes code reuse
 
 ```
 import mod { url, email }
@@ -185,12 +207,6 @@ import mod { url, email }
 
 ```
 // a comment
-
 ```
 
 - replaces regex comment group `(?#...)`
-
-
-
-## Misc
-
