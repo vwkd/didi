@@ -43,33 +43,20 @@
 - beware: identifier is not a variable, see Functions for variable-like functionality
 
 ```
-mymatch = "hello"
+m1 = "hel"
+"lo"
 ```
 
-- implementation must always return possibly multiple matches, e.g. array
-
-
-
-## Groups
-
-- sub-match in addition to total match
-- nested expressions 
-
 ```
-"hel"
-{
+m2 = {
+  "hel"
   "lo"
 }
 ```
 
-- identifier can name the group
-
-```
-second = { "lo" }
-```
-
-- replaces capture groups
-<!-- todo: more work on groups. Does this cover all of regex? -->
+- replaces regex capture groups
+<!-- todo: does this really cover all grouping functionality of regex? -->
+- implementation must always return possibly multiple matches, e.g. array
 
 
 
@@ -129,25 +116,24 @@ digit(1..3, greedy)
 - like regex `?`, `*`, `+`, `{3}`, `{3,}`, `{1,3}` 
 - built-in functions, e.g. `any`, `whitespace`, `digit`, `letter`, etc.
 - replaces regex character classes, recurse (sub)pattern
-- can define own function as well
+- can define custom function
 
 ```
-function date {
+date = {
   digit(2) "." digit(2) "." digit(4)
 }
 ```
 
-
-
-## Loop
-
-- multiple matches
+- can define anonymous custom function that immediately executes, AIIFE
 
 ```
-loop every "\n" {
-
+{
+  "he"
+  "lo"
 }
+```
 
+- custom function allows multiple matches
 - replaces regex global flag
 
 
@@ -159,7 +145,8 @@ loop every "\n" {
 - beware: no "else" since only ever one branch is taken for the consumed input string
 
 ```
-if "hello" {
+if "hello"
+{
   "world" 
 }
 ```
@@ -168,13 +155,17 @@ if "hello" {
 - for a non-negated condition needs to repeat condition inside to continue branch, necessary otherwise couldn't choose between using match or not, can use function to reuse code
 
 ```
-if "a" {
+if "a"
+{
   "a"
 }
-if "b" {
+if "b"
+{
   "b"
 }
 ```
+
+- block can start on same line, in separate line just for readability
 
 
 
