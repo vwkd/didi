@@ -13,6 +13,12 @@
 
 
 
+## Syntax
+
+- whitespace and new lines are insignificant
+
+
+
 ## Expressions
 
 - the total expression of a code path is compared to the input string
@@ -31,26 +37,19 @@
 
 - always matches against whole string 
 - must explicitly start and end code with `any(,)` to match in middle
-- like regex `^.*hello.*$`
-- replaces regex multiline flag
+- replaces regex multiline flag `m`
 
 
 
 ## Match
 
-- expression is matched if it's returned
-- doesn't match by default, needs to opt-in instead of opt-out
+- expression is matched only if it's declared as statement
+- by default no match, needs to opt-in instead of opt-out
+<!-- todo: should rather do opt-out like regex? -->
 
 ```
 "hel"
-"lo" return
-```
-
-```
-{
-  "hel"
-  "lo"
-} return
+"lo" ;
 ```
 
 - can think of adding to results, doesn't "stop" the code path
@@ -58,7 +57,7 @@
 - can give match a name
 
 ```
-"hel" return m1
+"hel" : "m1";
 ```
 
 - replaces regex named capture groups
@@ -128,55 +127,38 @@
 }
 ```
 
+- can also match block
+
+```
+{
+  "hel"
+  "lo"
+} ;
+```
+
+- return keyword can be on same or separate line
 <!-- todo: does this really cover all grouping functionality of regex? -->
 - without arguments is used exactly once
-
-```
-digit
-```
-
 - can give argument for repetition
 
 ```
-digit(3)
+{
+  "hello"
+}(3)
 ```
 
 - can give sequence for variable repetition
 - note, to make optional use sequence that includes `0`
-- if sequence is used can give optional second argument for greedy/ungreedy, defaults to greedy
-
-```
-digit(1..3, greedy)
-```
-
-- like regex `?`, `*`, `+`, `{3}`, `{3,}`, `{1,3}` 
-- can also match block itself
+- can give optional second argument after sequence for greedy/ungreedy, defaults to greedy
 
 ```
 {
- "hel"
- "lo"
-}
-return
+  "hello"
+}(1..3, greedy)
 ```
 
-- return keyword can be on same or separate line
-- allows to do multiple matches in input string
-- just block repetition
-- repeat whole block, and block of character class is greedy
-
-```
-{
-  any(,)
-  "hello" return
-  any(,)
-}(,)
-```
-
-- replaces regex global flag
-- built-in blocks, e.g. `any`, `whitespace`, `digit`, `letter`, etc.
-- replaces regex character classes, recurse (sub)pattern
-- can define named block at end of file after any matching expressions
+- replaces regex quantifiers `?`, `*`, `+`, `{3}`, `{3,}`, `{1,3}` 
+- can declare named block at end of file after any matching expressions
 
 ```
 date {
@@ -184,34 +166,49 @@ date {
 }
 ```
 
+- can reuse block by name in matching expression any number of times
+- built-in blocks, e.g. `any`, `anyButNewline`, `whitespace`, `digit`, `letter`, etc.
+- replaces regex character classes, recurse (sub)pattern
+- block repetition allows to do multiple matches in input string
+
+```
+{
+  any(,)
+  "hello" ;
+  any(,)
+}(,)
+```
+
+- replaces regex global flag `g`
+
 
 
 ## Branch
 
 - conditionally used block
 - condition is compared with input string ahead without eating characters
-- beware: no "else" since only ever one branch is taken for the consumed input string
+- note, for a non-negated condition needs to repeat condition inside to continue branch, otherwise couldn't choose between using match or not
 
 ```
-if "hello"
+"hello" ?
 {
   "hello" 
 }
 ```
 
 - block can start on same or separate line
-- can also match
+- multiple branches using multiple `if`s, no "else" since can only ever take one branch since input string is consumed
+<!-- todo: compute branches lazily as they are checked? -->
+- replaces regex lookahead, lookbehind, conditional statement, or
+- can still match whole block
 
 ```
-if "hello"
+"hello" ?
 {
   "hello"
-} return
+} ;
 ```
 
-<!-- todo: needs to wrap in block to match the whole, e.g. `(a|b)`? -->
-- replaces regex lookahead, lookbehind, conditional statement, or
-- note, for a non-negated condition needs to repeat condition inside to continue branch, otherwise couldn't choose between using match or not
 
 
 

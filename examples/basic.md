@@ -5,19 +5,20 @@
 ## Basics
 
 ```
-"a" return
+"a" ;
 ```
 
 ```
 ^(a)$
 ```
 
-- non-named capture group
-- can't match without capture group
+- literal inside quotes, doesn't need escaping
+- non-named match
+- like regex non-named capture group, there is no match without a capture group
 - start and end characters by default
 
 ```
-"a" return m1
+"a" : "m1" ;
 ```
 
 ```
@@ -32,7 +33,7 @@
 
 ```
 any(,)
-"a" return
+"a" ;
 ```
 
 ```
@@ -42,7 +43,7 @@ any(,)
 - note, `any(,)` is at the beginning when wants to match at end
 
 ```
-"a" return
+"a" ;
 any(,)
 ```
 
@@ -60,7 +61,7 @@ any(,)
 ```
 {
  any(,)
- "a" return
+ "a" ;
  any(,)
 }(,)
 ```
@@ -74,13 +75,13 @@ any(,)
 ## Branching
 
 ```
-if "a"
+"a" ?
 {
-  "a" return
+  "a" ;
 }
-if "b"
+"b" ?
 {
-  "b" return
+  "b" ;
 }
 ```
 
@@ -92,14 +93,15 @@ if "b"
 
 ```
 {
-  if "a" {
+  "a" ?
+  {
     "a"
   }
-
-  if "b" {
+  "b" ?
+  {
     "b"
   }
-} return
+} ;
 ```
 
 ```
@@ -123,5 +125,5 @@ if "b"
     "."
   }(3)
   digit(1,3)
-} return
+} ;
 ```
