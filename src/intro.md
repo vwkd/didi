@@ -6,7 +6,7 @@
 
 - code that defines string match
 - code paths navigate the input string
-- like being in the world of a string
+- can think of going through the world of the input string
 - no variables since doesn't operate on any other data than input string
 - can think of input string as variable that is implicitly assumed since since is the only one 
 - no flags/modifiers outside of code like in regex, everything is defined by the code itself
@@ -19,67 +19,62 @@
 
 
 
-## Expressions
+## Execution
 
-- the total expression of a code path is compared to the input string
-- eats up input string
-
-```
-"hello"
-```
-
-- multiple expressions in new lines are added together
+- a string eats up the input string
+- starts from beginning to end of the input string
+- if no code path works out until the very end then breaks with error of no match
+- can think of not having navigated the world of the input string correctly
+- must explicitly navigate to match something in middle, see later Block using `any(,)`
+- replaces regex multiline flag `m`
+- for readability it is recommended to use a separate line for each string
 
 ```
 "hel"
 "lo"
 ```
 
-- always matches against whole string 
-- must explicitly start and end code with `any(,)` to match in middle
-- replaces regex multiline flag `m`
-
-
-
-## Match
-
-- expression is matched only if it's declared as statement
+- a string is returned as match if it's a statement
 - by default no match, needs to opt-in instead of opt-out
-<!-- todo: should rather do opt-out like regex? -->
+- implementation must return collection since with capture groups can always have multiple matches, e.g. array
+- code fully defines amount of matches, single engine mode, not different flags and modifiers on outside
 
 ```
 "hel"
-"lo" ;
+"lo";
 ```
 
-- can think of adding to results, doesn't "stop" the code path
 - replaces regex capture groups, non-capturing atomic groups
 - can give match a name
 
 ```
-"hel" : "m1";
+"hel":"m1";
 ```
 
 - replaces regex named capture groups
-- named match must be implemented as a group, since can always return multiple matches, e.g. within repeated block
+- implementation must return collection since can have multiple matches with same name, e.g. within repeated block
 
 
 
-## Values
+## Types
 
 ### String
-
-- literal expression
-- no escaping necessary, except for quotes themselves
-- for character classes see Functions
 
 ```
 "hello"
 ```
 
+- no escaping necessary, except for quotes themselves
 - case-sensitive by default
-<!-- todo: how to do it case insensitively? methods on object? would be hard for blocks. Function? Would look weird. -->
-- replaces regex case insensitive flag `i`, localised inline modifiers `(?i:...)`
+- methods that transform string
+
+```
+"hello".toUpperCase()
+"hello world".toSnakeCase()
+```
+
+<!-- todo: how to make case insensitive? All combinations of case... Special block?
+- replaces regex case insensitive flag `i`, localised inline modifiers `(?i:...)` -->
 
 ### Range
 
@@ -100,19 +95,30 @@
 1..
 ```
 
-<!-- todo: allow user to define custom sequence, e.g. odd numbers, etc. would require full-blown programming language? -->
-
-
-
-## Logic
-
-- negation
+- methods to transform sequence
 
 ```
-!
+1...map(x => x * 2)
 ```
 
-- replaces regex negated character class
+<!-- todo: interfering dots... -->
+
+
+
+## Variable
+
+```
+h = "hello"
+```
+
+```
+ten = 1..10
+```
+
+- can declare variable to reuse code
+- has type, can only be used in proper position
+- declaration must be after any matching
+<!-- todo: how to differentiate matching from definitions? -->
 
 
 
@@ -144,7 +150,7 @@
 ```
 {
   "hello"
-}(3)
+} (3)
 ```
 
 - can give sequence for variable repetition
@@ -154,7 +160,7 @@
 ```
 {
   "hello"
-}(1..3, greedy)
+} (1..3, greedy)
 ```
 
 - replaces regex quantifiers `?`, `*`, `+`, `{3}`, `{3,}`, `{1,3}` 
@@ -173,10 +179,10 @@ date {
 
 ```
 {
-  any(,)
+  any (,)
   "hello" ;
-  any(,)
-}(,)
+  any (,)
+} (,)
 ```
 
 - replaces regex global flag `g`
@@ -209,6 +215,17 @@ date {
 } ;
 ```
 
+
+
+## Logic
+
+- negation
+
+```
+!
+```
+
+- replaces regex negated character class
 
 
 
