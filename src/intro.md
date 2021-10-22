@@ -9,12 +9,14 @@
 - like being in the world of a string
 - no variables since doesn't operate on any other data than input string
 - can think of input string as variable that is implicitly assumed since since is the only one 
+- no flags/modifiers outside of code like in regex, everything is defined by the code itself
 
 
 
 ## Expressions
 
 - the total expression of a code path is compared to the input string
+- eats up input string
 
 ```
 "hello"
@@ -31,12 +33,27 @@
 - must explicitly start and end code with `any(,)` to match in middle
 - like regex `^.*hello.*$`
 - replaces regex multiline flag
+<!-- todo: how to do non-capturing, eating up without creating a match?
+
+
+
+## Match
+
+- expression is returned as match if it's given an identifier
+- beware: identifier is not a variable, see Functions for variable-like functionality
+
+```
+mymatch = "hello"
+```
+
+- implementation must always return possibly multiple matches, e.g. array
 
 
 
 ## Groups
 
-- nested expressions for adding a sub-match next to the total match
+- sub-match in addition to total match
+- nested expressions 
 
 ```
 "hel"
@@ -45,15 +62,14 @@
 }
 ```
 
-- identifier names the group
-- beware: is not a variable, a function is instead, see Functions
+- identifier can name the group
 
 ```
-first = "hel"
 second = { "lo" }
 ```
 
 - replaces capture groups
+<!-- todo: more work on groups. Does this cover all of regex? -->
 
 
 
@@ -112,7 +128,7 @@ digit(1..3, greedy)
 <!-- todo: allow user to define custom sequence, e.g. odd numbers, etc. would require full-blown programming language? -->
 - like regex `?`, `*`, `+`, `{3}`, `{3,}`, `{1,3}` 
 - built-in functions, e.g. `any`, `whitespace`, `digit`, `letter`, etc.
-- replaces regex character classes
+- replaces regex character classes, recurse (sub)pattern
 - can define own function as well
 
 ```
@@ -139,22 +155,26 @@ loop every "\n" {
 ## Branch
 
 - a code path
-- like `if...else if` in programming language
-<!-- todo: lookaheads? don't return whole match by default, instead use variables `if a = "hello" { a + "world" }`? -->
+- condition is compared with input string ahead without eating characters
+- beware: no "else" since only ever one branch is taken for the consumed input string
 
 ```
 if "hello" {
   "world" 
 }
-
-if "hi" {
-  "world" 
-}
 ```
 
-- replaces regex `|`
-<!-- todo: introduces repetition into every branch instead of being confined to capture group? -->
-<!-- todo: does it need `any(,)` in each branch to match middle of input string? -->
+- replaces regex lookahead, lookbehind, conditional statement, or
+- for a non-negated condition needs to repeat condition inside to continue branch, necessary otherwise couldn't choose between using match or not, can use function to reuse code
+
+```
+if "a" {
+  "a"
+}
+if "b" {
+  "b"
+}
+```
 
 
 
@@ -183,4 +203,3 @@ import mod { url, email }
 
 ## Misc
 
-- no flags/modifiers outside of regex, everything is defined within the code
