@@ -5,16 +5,26 @@
 ## Basics
 
 ```
-m1 = "a"
+"a" return
+```
+
+```
+^(a)$
+```
+
+- non-named capture group
+- can't match without capture group
+- start and end characters by default
+
+```
+"a" return m1
 ```
 
 ```
 ^(?<m1>a)$
 ```
 
-- named capture group, no non-named capture group, no match without capture group
-- start and end characters
-- beware: will for simplicity use regex `a` as synonym for `(?<m1>a)` although it doesn't exist, similarly to `(a)`
+- named capture group
 
 
 
@@ -22,26 +32,26 @@ m1 = "a"
 
 ```
 any(,)
-m1 = "a"
+"a" return
 ```
 
 ```
-(?<m1>a)$
+(a)$
 ```
 
 - note, `any(,)` is at the beginning when wants to match at end
 
 ```
-m1 = "a"
+"a" return
 any(,)
 ```
 
 ```
-^(?<m1>a)
+^(a)
 ```
 
 - note, `any(,)` is at the end when wants to match at beginning
-- works because character classes are greedy by default
+- works because block repetition is greedy by default, i.e. `any(,)` eats as much of the input string as it can
 
 
 
@@ -50,27 +60,38 @@ any(,)
 ```
 {
  any(,)
- m1 = "a"
+ "a" return
  any(,)
 }(,)
 ```
 
 ```
-(?<m1>a)
+(a)
 ```
-
-<!-- todo: name makes no sense if multiple? -->
 
 
 
 ## Branching
 
 ```
-^(?<m1>a|b)$
+if "a"
+{
+  "a" return
+}
+if "b"
+{
+  "b" return
+}
 ```
 
 ```
-m1 = {
+^(a)|(b)$
+```
+
+- can also name the whole thing
+
+```
+{
   if "a" {
     "a"
   }
@@ -78,10 +99,12 @@ m1 = {
   if "b" {
     "b"
   }
-}
+} return
 ```
 
-- doesn't exist for missing start and/or end characters, or missing named capture group
+```
+^(a|b)$
+```
 
 
 
@@ -90,15 +113,15 @@ m1 = {
 - IPv4 address
 
 ```
-/(?:\d{1,3}\.){3}\d{1,3}/
+((?:\d{1,3}\.){3}\d{1,3})
 ```
 
 ```
 {
+  {
+    digit(1,3)
+    "."
+  }(3)
   digit(1,3)
-  "."
-}(3)
-digit(1,3)
+} return
 ```
-
-<!-- todo: missing identifier -->

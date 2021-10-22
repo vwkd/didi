@@ -38,26 +38,31 @@
 
 ## Match
 
-- expression is matched if it's given an identifier
+- expression is matched if it's returned
 - doesn't match by default, needs to opt-in instead of opt-out
-- implementation must always return possibly multiple matches, e.g. array
 
 ```
-m1 = "hel"
-"lo"
+"hel"
+"lo" return
 ```
 
 ```
-m2 = {
+{
   "hel"
   "lo"
-}
+} return
 ```
 
-- beware: identifier is not a variable, see Block for variable-like functionality
-<!-- todo: name makes no sense if within repeated block since can match multiple times... -->
+- can think of adding to results, doesn't "stop" the code path
 - replaces regex capture groups, non-capturing atomic groups
-<!-- todo: does this really cover all grouping functionality of regex? -->
+- can give match a name
+
+```
+"hel" return m1
+```
+
+- replaces regex named capture groups
+- named match must be implemented as a group, since can always return multiple matches, e.g. within repeated block
 
 
 
@@ -123,6 +128,7 @@ m2 = {
 }
 ```
 
+<!-- todo: does this really cover all grouping functionality of regex? -->
 - without arguments is used exactly once
 
 ```
@@ -144,9 +150,32 @@ digit(1..3, greedy)
 ```
 
 - like regex `?`, `*`, `+`, `{3}`, `{3,}`, `{1,3}` 
+- can also match block itself
+
+```
+{
+ "hel"
+ "lo"
+}
+return
+```
+
+- return keyword can be on same or separate line
+- allows to do multiple matches in input string
+- just block repetition
+- repeat whole block, and block of character class is greedy
+
+```
+{
+  any(,)
+  "hello" return
+  any(,)
+}(,)
+```
+
+- replaces regex global flag
 - built-in blocks, e.g. `any`, `whitespace`, `digit`, `letter`, etc.
 - replaces regex character classes, recurse (sub)pattern
-- like loop in programming language
 - can define named block at end of file after any matching expressions
 
 ```
@@ -154,10 +183,6 @@ date {
   digit(2) "." digit(2) "." digit(4)
 }
 ```
-
-<!-- todo: multiple matches anywhere in string? can't just use block since requires knowledge of structure... can't just repeat whole thing because fixes start and end
-- replaces regex global flag
--->
 
 
 
@@ -179,9 +204,9 @@ if "hello"
 
 ```
 if "hello"
-m1 = {
+{
   "hello"
-}
+} return
 ```
 
 <!-- todo: needs to wrap in block to match the whole, e.g. `(a|b)`? -->
@@ -196,7 +221,17 @@ m1 = {
 - promotes code reuse
 
 ```
-import mod { url, email }
+use url, email from mod
+```
+
+<!-- todo: where to specify the modules? most portable from simple URL? -->
+
+- can export block definitions
+
+```
+pub email {
+  // definition...
+}
 ```
 
 
