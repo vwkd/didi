@@ -1,3 +1,7 @@
+---
+title: Block
+index: 6
+---
 # Block
 
 

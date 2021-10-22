@@ -1,3 +1,7 @@
+---
+title: Syntax
+index: 2
+---
 # Syntax
 
 

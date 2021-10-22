@@ -1,3 +1,7 @@
+---
+title: Branching
+index: 7
+---
 # Branching
 
 

@@ -1,3 +1,7 @@
+---
+title: Variable
+index: 5
+---
 # Variable
 
 

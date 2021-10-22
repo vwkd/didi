@@ -1,3 +1,7 @@
+---
+title: Types
+index: 4
+---
 # Types
 
 
