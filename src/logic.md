@@ -8,10 +8,11 @@ index: 8
 
 ## Introduction
 
-- non-equals comparison 
+- negation
+- uses "not equal" comparison with input string instead of "equal"
 
 ```
-!"hello"
+- "hello"
 ```
 
 - replaces regex negated character class

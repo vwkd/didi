@@ -5,7 +5,7 @@
 ## Basics
 
 ```
-"a" ;
+"a";
 ```
 
 ```
@@ -18,7 +18,7 @@
 - start and end characters by default
 
 ```
-"a" : "m1" ;
+"a" : "m1";
 ```
 
 ```
@@ -33,7 +33,7 @@
 
 ```
 any(,)
-"a" ;
+"a";
 ```
 
 ```
@@ -43,7 +43,7 @@ any(,)
 - note, `any(,)` is at the beginning when wants to match at end
 
 ```
-"a" ;
+"a";
 any(,)
 ```
 
@@ -61,7 +61,7 @@ any(,)
 ```
 {
  any(,)
- "a" ;
+ "a";
  any(,)
 } (,)
 ```
@@ -77,11 +77,11 @@ any(,)
 ```
 "a" ?
 {
-  "a" ;
+  "a";
 }
 "b" ?
 {
-  "b" ;
+  "b";
 }
 ```
 
@@ -110,7 +110,7 @@ any(,)
 
 
 
-### Match everything enclosed
+### Non-capturing group
 
 - IPv4 address
 
@@ -126,4 +126,95 @@ any(,)
   } (3)
   digit(1,3)
 } ;
+```
+
+
+
+## Positive Lookahead
+
+- followed by
+
+```
+^(foo(?=bar))$
+```
+
+```
+"foobar" ?
+{
+  "foo";
+}
+```
+
+- ends in
+
+```
+^(foo(?=.*bar))$
+```
+
+```
+endsInBar ?
+{
+  "foo";
+}
+
+endsInBar = {
+  any(,)
+  "bar"
+}
+```
+
+- contains
+
+```
+^((?=.*foobar).+)$
+```
+
+```
+hasFoobar ?
+{
+  any(,);
+}
+
+hasFoobar = {
+  any(,)
+  "foobar"
+  any(,)
+}
+```
+
+- password with at least 12 characters, with at least 1 uppercase letter, 1 lowercase letter, and 1 number
+
+```
+^((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{12,})$
+```
+
+```
+hasVariety ?
+{
+  any(12,);
+}
+
+hasVariety = {
+  hasUppercase !
+  hasLowercase !
+  hasNumber !
+}
+
+hasUppercase = {
+  any(,)
+  Letter
+  any(,)
+}
+
+hasLowercase = {
+  any(,)
+  letter
+  any(,)
+}
+
+hasNumber = {
+  any(,)
+  digit
+  any(,)
+}
 ```

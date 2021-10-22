@@ -23,6 +23,8 @@ index: 6
 ```
 
 - replaces regex global flag `g`
+- separate syntax from capturing group, doesn't mix up like regex
+- replaces non-capturing group
 
 
 
