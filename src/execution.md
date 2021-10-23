@@ -35,7 +35,7 @@ index: 3
 ## Match
 
 - a statement
-- expression is no match, needs to opt-in instead of opt-out
+- an expression is no match, needs to opt-in instead of opt-out
 - implementation must return collection since with capture groups can always have multiple matches, e.g. array
 - code fully defines amount of matches, not different flags and modifiers on outside, engine has only single mode of execution
 
@@ -53,3 +53,25 @@ index: 3
 
 - replaces regex named capture groups
 - implementation must return collection since can have multiple matches with same name, e.g. within repeated block
+
+
+
+## Repetition
+
+- by default a string value is used exactly once
+- can give non-negative integer for repetition
+
+```
+"hello" 3
+```
+
+- can give sequence for variable repetition
+- note, to make optional use sequence that includes `0`
+- defaults to greedy
+- can give optional second argument after sequence for ungreedy
+
+```
+"hello" 1..3 <
+```
+
+- replaces regex quantifiers `?`, `*`, `+`, `{3}`, `{3,}`, `{1,3}` 
