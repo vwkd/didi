@@ -57,8 +57,7 @@ index: 3
 "hello" 3
 ```
 
-- can give sequence for variable repetition
-- note, to make optional use sequence that includes `0`
+- can give sequence for varying repetition
 - defaults to greedy
 - can give optional second argument after sequence for ungreedy
 
@@ -66,4 +65,5 @@ index: 3
 "hello" 1..3 <
 ```
 
+- note, to make optional use sequence that includes `0`, e.g. `0..1`
 - replaces regex quantifiers `?`, `*`, `+`, `{3}`, `{3,}`, `{1,3}` 

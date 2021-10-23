@@ -29,3 +29,4 @@ index: 1
 - variables for code reuse
 - modules for code reuse
 - looks nicer over multiple lines
+- amount of repeated matches defined by code, number, set of numbers, or any number
