@@ -8,16 +8,16 @@ index: 6
 
 ## Introduction
 
-- reusable expression
-- without arguments is used exactly once
-- can give argument for repetition
+- reusable group of string values
+- by default is used exactly once just like without grouping it
+- can repeat, see Arguments
 <!-- todo: does this really cover all grouping functionality of regex? -->
-- repetition allows to multiple matches in input string
+- repetition allows for multiple matches in input string
 
 ```
 {
   any ..
-  "hello" ;
+  "hello";
   any ..
 } ..
 ```
@@ -37,7 +37,7 @@ index: 6
 }
 ```
 
-- can also match block
+- can also match
 
 ```
 {
@@ -46,17 +46,28 @@ index: 6
 };
 ```
 
+- can also assign to variable for reuse
+
+```
+hello = {
+  "hel"
+  "lo"
+}
+```
+
+- built-in blocks, e.g. `any`, `anyButNewline`, `whitespace`, `digit`, `letter`, etc.
+- replaces regex character classes, recurse (sub)pattern
+
 
 
 ## Arguments
 
-<!-- todo: find different way than argument, looks ugly -->
-- defines repetition
+- define repetition
 
 ```
 {
   "hello"
-}(3)
+} 3
 ```
 
 - can give sequence for variable repetition
@@ -67,28 +78,7 @@ index: 6
 ```
 {
   "hello"
-} (1..3, ungreedy)
+} 1..3 <
 ```
 
 - replaces regex quantifiers `?`, `*`, `+`, `{3}`, `{3,}`, `{1,3}` 
-
-
-
-## Variable
-
-- can make block also a variable
-- can reuse
-
-```
-date = {
-  digit(2)
-  "."
-  digit(2)
-  "."
-  digit(4)
-}
-```
-
-- can reuse block by name in matching expression any number of times
-- built-in blocks, e.g. `any`, `anyButNewline`, `whitespace`, `digit`, `letter`, etc.
-- replaces regex character classes, recurse (sub)pattern
