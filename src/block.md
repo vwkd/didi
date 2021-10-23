@@ -45,10 +45,10 @@ index: 6
 - can also assign to variable for reuse
 
 ```
-hello = {
+{
   "hel"
   "lo"
-}
+} = hello
 ```
 
 - built-in blocks, e.g. `any`, `anyButNewline`, `whitespace`, `digit`, `letter`, etc.

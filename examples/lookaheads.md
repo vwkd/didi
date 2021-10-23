@@ -14,11 +14,11 @@ hasFoobar ?
   any ..;
 }
 
-hasFoobar = {
+{
   any ..
   "foobar"
   any ..
-}
+} = hasFoobar
 ```
 
 
@@ -40,27 +40,27 @@ hasVariety ?
   any 12.. ;
 }
 
-hasVariety = {
+{
   hasUppercase !
   hasLowercase !
   hasNumber !
-}
+} = hasVariety
 
-hasUppercase = {
+{
   any ..
   Letter
   any ..
-}
+} = hasUppercase
 
-hasLowercase = {
+{
   any ..
   letter
   any ..
-}
+} = hasLowercase
 
-hasNumber = {
+{
   any ..
   digit
   any ..
-}
+} = hasNumber
 ```

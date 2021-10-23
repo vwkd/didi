@@ -18,7 +18,7 @@
 - start and end characters by default
 
 ```
-"a" : "m1";
+"a" = m1;
 ```
 
 ```

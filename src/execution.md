@@ -45,14 +45,6 @@ index: 3
 ```
 
 - replaces regex capture groups, non-capturing atomic groups
-- can give match a name
-
-```
-"hel":"m1";
-```
-
-- replaces regex named capture groups
-- implementation must return collection since can have multiple matches with same name, e.g. within repeated block
 
 
 
