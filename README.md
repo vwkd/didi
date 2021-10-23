@@ -1,15 +1,19 @@
 # Didi
 
-A programming language for string matching.
+A language for string matching.
 
-Didi means "little brother" in Chinese. A string matching language is a little brother to a programming language.
+It strives to be more like a programming language. Didi means "little brother" in Chinese.
 
 
 
 ## What?
 
-Regular Expressions are well known for being hard to read. Code should be designed to be easy to read by the human, not necessarily by machine. Regular Expressions aren't.
-  
-One day, when reading some RegEx `a|b` it reminded me of a code path in a programming language. Either take this route or that route. I asked myself if there wasn't a way to make string matching easier to read.
+Currently it's nothing more than a loose specification and a few examples. An implementation can be considered only when the spec really makes sense.
 
-Quite naturally many things followed from thinking about it like a programming language. Reusable bits in the form of functions. Importing foreign bits using modules. Comments.
+
+
+## Why?
+
+Regular Expressions are well known for being hard to read. It might look great for replacing "a" with "b", but as soon as you do more complicated stuff the fun is over. Code should be easy to read by humans. Regular Expressions aren't.
+  
+One day when reading a RegEx the alternate `a|b` reminded me of a if..else in a programming language. I wondered why RegEx weren't so easy to read like a programming language. I played around with some syntax from programming languages until a minimal set made some sense. From thinking about it more as a programming language, many concepts like variables, modules or comments followed over.

@@ -62,6 +62,7 @@ hello = {
 
 ## Arguments
 
+<!-- todo: allow it for string values in general? would also allow it for "hello", also clarify that purpose of block is logical grouping -->
 - define repetition
 
 ```
