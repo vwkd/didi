@@ -16,10 +16,10 @@ index: 6
 
 ```
 {
-  any (,)
+  any ..
   "hello" ;
-  any (,)
-} (,)
+  any ..
+} ..
 ```
 
 - replaces regex global flag `g`

@@ -44,5 +44,5 @@ index: 7
 }
 
 - like two branches that both must work
-- beware: doesn't make sense with literal strings, needs to use with overlapping character classes like `any(,)`
+- beware: doesn't make sense with literal strings, needs to use with overlapping character classes like `any ..`
 - replaces regex lookahead, lookbehind, conditional statement, or

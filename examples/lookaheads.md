@@ -11,13 +11,13 @@
 ```
 hasFoobar ?
 {
-  any(,);
+  any ..;
 }
 
 hasFoobar = {
-  any(,)
+  any ..
   "foobar"
-  any(,)
+  any ..
 }
 ```
 
@@ -37,7 +37,7 @@ hasFoobar = {
 ```
 hasVariety ?
 {
-  any(12,);
+  any 12.. ;
 }
 
 hasVariety = {
@@ -47,20 +47,20 @@ hasVariety = {
 }
 
 hasUppercase = {
-  any(,)
+  any ..
   Letter
-  any(,)
+  any ..
 }
 
 hasLowercase = {
-  any(,)
+  any ..
   letter
-  any(,)
+  any ..
 }
 
 hasNumber = {
-  any(,)
+  any ..
   digit
-  any(,)
+  any ..
 }
 ```

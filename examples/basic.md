@@ -32,7 +32,7 @@
 ## Start and end
 
 ```
-any(,)
+any ..
 "a";
 ```
 
@@ -40,19 +40,19 @@ any(,)
 (a)$
 ```
 
-- note, `any(,)` is at the beginning when wants to match at end
+- note, `any ..` is at the beginning when wants to match at end
 
 ```
 "a";
-any(,)
+any ..
 ```
 
 ```
 ^(a)
 ```
 
-- note, `any(,)` is at the end when wants to match at beginning
-- works because block repetition is greedy by default, i.e. `any(,)` eats as much of the input string as it can
+- note, `any ..` is at the end when wants to match at beginning
+- works because block repetition is greedy by default, i.e. `any ..` eats as much of the input string as it can
 
 
 
@@ -60,10 +60,10 @@ any(,)
 
 ```
 {
- any(,)
+ any ..
  "a";
- any(,)
-} (,)
+ any ..
+} ..
 ```
 
 ```

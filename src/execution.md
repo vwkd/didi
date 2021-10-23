@@ -14,7 +14,7 @@ index: 3
 - starts from beginning to end of the input string
 - if no code path works out until the very end then breaks with error of no match
 - can think of not having navigated the world of the input string correctly
-- must explicitly navigate input string to only match something in middle, see later Block using `any(,)`
+- must explicitly navigate input string to only match something in middle, see later Block using `any ..`
 - replaces regex multiline flag `m`
 
 
