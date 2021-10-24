@@ -4,6 +4,8 @@
 
 ## Contains
 
+- condition is block with character classes of varying repetition
+
 ```
 ^((?=foobar).+)$
 ```
@@ -36,12 +38,6 @@ hasFoobar ?
 
 ```
 {
-  hasUppercase !
-  hasLowercase !
-  hasNumber !
-} = hasVariety
-
-{
   any ..
   Letter
   any ..
@@ -58,6 +54,8 @@ hasFoobar ?
   digit
   any ..
 } = hasNumber
+
+hasUppercase & hasLowercase & hasNumber = hasVariety
 
 hasVariety ?
 {

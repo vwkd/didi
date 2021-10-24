@@ -8,20 +8,27 @@ index: 7
 
 ## Introduction
 
-- code paths
+- conditionally used string value
+- creates code paths
+- only one code path is used
+- uses first one that works, short-circuit
+- beware: no "else" branch since only ever one can be taken because input string is consumed by it
 - replaces regex lookahead, lookbehind, conditional statement, or
 
 
 
-## Alternate
+## Condition
 
-- conditionally used string value
-- only one code path is used
-- uses first one that works, short-circuit
-- beware: no "else" branch since only ever one can be taken because input string is consumed by it
-- condition is a string value
-- compared to whole input string until end
-- if equals then following string value is used
+- boolean value
+- there is little use in using a literal boolean value
+
+```
+true ? "hello"
+```
+
+- can use a string value as condition
+- compared to input string until end
+- if equals then resolves to boolean `true`
 - doesn't eat up input string
 
 ```
@@ -57,26 +64,6 @@ notHi ?
 "hello"
 ```
 
-- can do lookahead using block with contents of varying repetition as condition, see Example
-
-
-
-## Constraints
-
-- in condition can use "and"
-- all code paths are used
-- compared to whole input string until end
-- if equals then following string value is used
-- doesn't eat up input string
-- doesn't allow value since duplication
-<!-- todo: better syntax to make constraint within condition instead of code itself -->
-- can do multiple lookaheads, see Example
-
-
-```
-{
-  b1 !
-  b2 !
-}
-
-- beware: doesn't make sense with literal strings, needs to use with overlapping character classes like `any ..`
+- can use `&` for multiple conditions that must all be true
+- beware: doesn't make sense to use literal strings in multiple conditions since needs to have some overlapping values, e.g. `any ..`
+- can create lookahead(s) using block(s) with character classes of varying repetition as condition(s), see Example
