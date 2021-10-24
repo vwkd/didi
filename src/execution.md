@@ -90,7 +90,8 @@ h @ h;
 
 ## Coercion
 
-- coerces string to boolean when needed
+- coerces string to boolean
 - compares string value to input string until end
 - if equals then resolves to boolean `true` otherwise `false`
 - doesn't eat up input string
+- only used in condition of branching

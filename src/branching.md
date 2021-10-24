@@ -13,7 +13,7 @@ index: 7
 - for multiple branches uses first one that works, short-circuit
 - only ever one code path is used since since input string is consumed by it
 - no "else" in favour of separate "if"s
-- replaces regex lookahead, lookbehind, conditional statement, or
+- replaces regex lookahead, lookbehind, conditional statement, or, lookahead conditional, lookbehind conditional, etc.
 
 
 
@@ -24,7 +24,7 @@ index: 7
 - beware: little use in using boolean value directly since doesn't depend on input string
 
 ```
--"hi" ? "hello"
+- "hi" ? "hello"
 ```
 
 - recommends to use variable for condition to make it more readable

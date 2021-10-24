@@ -8,7 +8,7 @@ index: 2
 
 ## Intro
 
-- whitespace and new lines are insignificant
+- whitespace and linebreaks are insignificant
 
 
 

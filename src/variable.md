@@ -10,16 +10,12 @@ index: 5
 
 ```
 "hello" = h
-```
-
-```
 1..10 = ten
 ```
 
-- a reusable value
-- has a type
-- beware: variable can only be used where type can be used
-- declare at beginning of file
+- a named constant value
+- can't reassign or do any computations with it
+- has a type, can only be used where type can be used
+- declared at beginning of file
 - not part of matching logic
 - implementation uses simple substitution
-- like a constant in programming language
