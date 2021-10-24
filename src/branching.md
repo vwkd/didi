@@ -8,36 +8,70 @@ index: 7
 
 ## Introduction
 
-- alternative
-- conditionally used block
-<!-- todo: should allow string value in general? Would make little sense for string literal or variable but be more consistent in using blocks just for grouping ... -->
-- creates a code path
+- code paths
+- replaces regex lookahead, lookbehind, conditional statement, or
+
+
+
+## Alternate
+
+- conditionally used string value
 - only one code path is used
 - uses first one that works, short-circuit
 - beware: no "else" branch since only ever one can be taken because input string is consumed by it
-
-
-
-## Condition
-
-- a string value
+- condition is a string value
 - compared to whole input string until end
-- if equals then following block is used
+- if equals then following string value is used
 - doesn't eat up input string
-- beware: for non-negated condition needs to repeat it within block since didn't yet eat up input string
 
 ```
-"hello" ?
+-"hi" ? "hello"
+```
+
+- recommends to use variable for condition to make it more readable
+
+```
+- "hi" = notHi
+
+notHi ? "hello"
+```
+
+- recommends to use block for string value to make it more readable
+
+```
+- "hi" = notHi
+
+notHi ?
 {
-  "hel";
+  "hello"
 }
 ```
 
-- block can start on same or separate line
-- can use variable of block as condition as well, necessary for more complex matches, see Example
-<!-- todo: maybe not use variable? block is confusing at two places with different meaning -->
-- in the block that's used in condition, can use "and" on other blocks within it
-<!-- todo: use other syntax for parallel code paths -->
+- beware: a non-negated string literal value as condition makes little sense since can just match directly
+
+```
+"hello" ? "hello"
+```
+
+```
+"hello"
+```
+
+- can do lookahead using block with contents of varying repetition as condition, see Example
+
+
+
+## Constraints
+
+- in condition can use "and"
+- all code paths are used
+- compared to whole input string until end
+- if equals then following string value is used
+- doesn't eat up input string
+- doesn't allow value since duplication
+<!-- todo: better syntax to make constraint within condition instead of code itself -->
+- can do multiple lookaheads, see Example
+
 
 ```
 {
@@ -45,6 +79,4 @@ index: 7
   b2 !
 }
 
-- like two branches that both must work
 - beware: doesn't make sense with literal strings, needs to use with overlapping character classes like `any ..`
-- replaces regex lookahead, lookbehind, conditional statement, or
