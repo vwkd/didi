@@ -12,10 +12,11 @@ index: 5
 "hello" = h
 ```
 
-- can declare variable to reuse string value
-- can only use later, not before
+- a reusable string value
+- declare at beginning of file
+- without a `;` since isn't part of matching logic
 - implementation uses simple substitution
-- can not also repeat, needs to wrap in block and repeat that instead
+- like a named constant
 
 
 
@@ -25,7 +26,18 @@ index: 5
 "hello" = h;
 ```
 
-- can give match a name
+- name of match in output
+- declare within matching logic
+- with a `;` since is match
+- has nothing to do with variable, can not reuse
+- beware: completely different from reusable variable, just "happens to use" same syntax
+- can also name variables
+
+```
+h = h;
+```
+
+- beware: seems circular when same name, but two very different things
+- can not repeat string value with name, needs to wrap it in block and repeat that instead
 - replaces regex named capture groups
 - implementation must return collection since can have multiple matches with same name, e.g. within repeated block
-- beware: can't name match without using a variable that could also be reused internally, fair tradeoff for not needing two ways to assign identifier since no need for encapsulation
