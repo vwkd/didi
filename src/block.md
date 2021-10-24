@@ -42,7 +42,7 @@ index: 6
 } 3
 ```
 
-- can also assign to variable for reuse
+- can also assign to variable in advance for reuse
 
 ```
 {

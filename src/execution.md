@@ -46,6 +46,24 @@ index: 3
 
 - replaces regex capture groups, non-capturing atomic groups
 
+### Named match
+
+```
+"hello" @ h;
+```
+
+- name of match in output
+- can not repeat, needs to repeat a wrapping block instead
+- can also name match of variable
+- beware: name of match can be anything including name of variable
+
+```
+h @ h;
+```
+
+- replaces regex named capture groups
+- implementation must return collection since can have multiple matches with same name, e.g. within repeated block
+
 
 
 ## Repetition
