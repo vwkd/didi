@@ -9,16 +9,16 @@
 ```
 
 ```
-hasFoobar ?
-{
-  any .. ;
-}
-
 {
   any ..
   "foobar"
   any ..
 } = hasFoobar
+
+hasFoobar ?
+{
+  any .. ;
+}
 ```
 
 
@@ -35,11 +35,6 @@ hasFoobar ?
 ```
 
 ```
-hasVariety ?
-{
-  any 12.. ;
-}
-
 {
   hasUppercase !
   hasLowercase !
@@ -63,4 +58,9 @@ hasVariety ?
   digit
   any ..
 } = hasNumber
+
+hasVariety ?
+{
+  any 12.. ;
+}
 ```
