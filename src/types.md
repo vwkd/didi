@@ -64,10 +64,14 @@ true
 
 - only used in branch condition
 - automatically created from string value if it compares sucessfully to input string
-- operators
+- and operator
 
 ```
 b1 & b2
 ```
 
-<!-- todo: only "and" needed, for "or" could use separate branch? -->
+- or operator
+
+```
+b1 | b2
+```
