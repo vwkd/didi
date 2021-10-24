@@ -13,9 +13,7 @@ index: 4
 ```
 
 - no escaping necessary, except for quotes themselves
-- case-sensitive by default
-<!-- todo: how to make case insensitive? All combinations of case... Special block?
-- replaces regex case insensitive flag `i`, localised inline modifiers `(?i:...)` -->
+- case-sensitive
 
 
 
