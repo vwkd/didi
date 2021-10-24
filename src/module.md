@@ -22,7 +22,7 @@ import url, email from mod
 ```
 
 <!-- todo: where to specify the modules? most portable from simple URL in import? -->
-<!-- todo: find better syntax than JavaScript -->
+<!-- todo: find better syntax than JavaScript. Should allow easy aliasing as well -->
 
 
 

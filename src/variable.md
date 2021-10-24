@@ -17,8 +17,9 @@ index: 5
 ```
 
 - a reusable value
+- has a type
+- beware: variable can only be used where type can be used
 - declare at beginning of file
-- has a type, can only be used at proper place
-- is't part of matching logic
+- not part of matching logic
 - implementation uses simple substitution
-- like a named constant
+- like a constant in programming language
