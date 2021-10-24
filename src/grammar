@@ -1,0 +1,23 @@
+didi
+    hmmmm
+
+hmmm
+    ws string ws
+
+whitespace
+    ""
+    character_ws whitespace
+
+character_ws
+    UNICODE_WHITESPACE_CHARACTER
+
+string
+    '"' characters '"'
+
+characters
+    ""
+    character characters
+
+character
+    UNICODE_CHARACTER - '"'
+    '\' '"'
