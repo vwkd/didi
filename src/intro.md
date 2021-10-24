@@ -22,11 +22,10 @@ index: 1
 ## Advantages
 
 - language is by default code instead of string matching, needs to opt-in instead of opt-out
-- strings are strings, no escaping
-- symbols only used for control flow, not for string matching
-- matching is not default
-- code defines entire behavior, no flags/modifiers outside of code like in regex
+- doesn't match by default, needs to opt-in instead of opt-out
+- no escaping necessary (except quotes)
+- amount of repeated matches between one and any don't need manual repetition
+- code defines entire behavior, no flags/modifiers on outside, e.g. amount of repeated matches, multiple lines, case insensitivity, etc.
 - variables for code reuse
 - modules for code reuse
-- looks nicer over multiple lines
-- amount of repeated matches defined by code, number, set of numbers, or any number
+- nicer syntax, more like programming language
