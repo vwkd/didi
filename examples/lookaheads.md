@@ -11,7 +11,7 @@
 ```
 hasFoobar ?
 {
-  any ..;
+  any .. ;
 }
 
 {

@@ -2,7 +2,11 @@
 
 
 
-## Basics
+## Non-named match
+
+- literal inside quotes, doesn't need escaping
+- like regex non-named capture group, there is no match without a capture group
+- start and end characters by default
 
 ```
 "a";
@@ -12,10 +16,9 @@
 ^(a)$
 ```
 
-- literal inside quotes, doesn't need escaping
-- non-named match
-- like regex non-named capture group, there is no match without a capture group
-- start and end characters by default
+
+
+## Named match
 
 ```
 "a" = m1;
@@ -25,11 +28,11 @@
 ^(?<m1>a)$
 ```
 
-- named capture group
-
 
 
 ## Start and end
+
+- `any ..` is at the beginning when wants to match at end
 
 ```
 any ..
@@ -40,7 +43,7 @@ any ..
 (a)$
 ```
 
-- note, `any ..` is at the beginning when wants to match at end
+- `any ..` is at the end when wants to match at beginning
 
 ```
 "a";
@@ -51,7 +54,6 @@ any ..
 ^(a)
 ```
 
-- note, `any ..` is at the end when wants to match at beginning
 - works because block repetition is greedy by default, i.e. `any ..` eats as much of the input string as it can
 
 
