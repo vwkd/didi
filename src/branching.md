@@ -9,10 +9,10 @@ index: 7
 ## Introduction
 
 - conditionally used string value
-- creates code paths
-- only one code path is used
-- uses first one that works, short-circuit
-- beware: no "else" branch since only ever one can be taken because input string is consumed by it
+- creates a code path
+- for multiple branches uses first one that works, short-circuit
+- only ever one code path is used since since input string is consumed by it
+- no "else" in favour of separate "if"s
 - replaces regex lookahead, lookbehind, conditional statement, or
 
 
@@ -20,16 +20,8 @@ index: 7
 ## Condition
 
 - boolean value
-- there is little use in using a literal boolean value
-
-```
-true ? "hello"
-```
-
-- can use a string value as condition
-- compared to input string until end
-- if equals then resolves to boolean `true`
-- doesn't eat up input string
+- use with string value and coercion
+- beware: little use in using boolean value directly since doesn't depend on input string
 
 ```
 -"hi" ? "hello"
@@ -64,6 +56,6 @@ notHi ?
 "hello"
 ```
 
-- can use `&` for multiple conditions that must all be true
-- beware: doesn't make sense to use literal strings in multiple conditions since needs to have some overlapping values, e.g. `any ..`
+- can use `&` for multiple conditions, must all be true
+- beware: doesn't make sense to use literal strings in multiple conditions since needs to have some overlapping values, use character classes instead, e.g. `any ..`
 - can create lookahead(s) using block(s) with character classes of varying repetition as condition(s), see Example

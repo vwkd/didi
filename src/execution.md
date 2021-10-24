@@ -85,3 +85,12 @@ h @ h;
 
 - note, to make optional use sequence that includes `0`, e.g. `0..1`
 - replaces regex quantifiers `?`, `*`, `+`, `{3}`, `{3,}`, `{1,3}` 
+
+
+
+## Coercion
+
+- coerces string to boolean when needed
+- compares string value to input string until end
+- if equals then resolves to boolean `true` otherwise `false`
+- doesn't eat up input string

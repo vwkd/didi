@@ -51,7 +51,7 @@ index: 6
 } = hello
 ```
 
-- built-in blocks, e.g. `any`, `anyButNewline`, `whitespace`, `digit`, `letter`, etc.
+- built-in blocks for character classes, e.g. `any`, `anyButNewline`, `whitespace`, `digit`, `letter`, etc.
 - replaces regex character classes, recurse (sub)pattern
 
 
