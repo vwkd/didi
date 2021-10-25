@@ -17,7 +17,7 @@ index: 1
 ```
 
 ```
-// MINUS WHOLE MATCH
+// except whole match, i.e. empty
 ^a$
 ```
 
@@ -53,7 +53,7 @@ index: 1
 ```
 
 ```
-// MINUS WHOLE MATCH
+// minus whole match, i.e. only "b"
 ^a(b)c$
 ```
 
