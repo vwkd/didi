@@ -53,6 +53,7 @@ operation
     maybe_progression
 
 // TODO: better name
+// note: this eats the input string
 progression
     match
     no_match
@@ -85,6 +86,7 @@ repetition_mode
 maybe_progression
     conditions cw "?" cw progression
 
+// note: this doesn't eat the input string
 conditions
     condition
     condition cw boolean_operator cw conditions
@@ -93,8 +95,8 @@ boolean_operator
     "&"
     "|"
 
-// beware: variable or block can contain `match`, but engine treats it as `no_match` since doesn't eat input string
-// doesn't want to disallow since can reuse same variable for condition and for progression, e.g. `hasFoo & hasBar ? hasFoo`
+// beware: variable or block can contain `match`es, engine must treat as `no_match` since doesn't eat input string
+// doesn't disallow for variable since want to reuse for both condition and progression, e.g. `hasFoo & hasBar ? hasFoo`
 // could disallow it just for block but would make grammar much more complicated
 condition
     boolean_value_op
@@ -204,8 +206,8 @@ comments
 comment
     "/*" comment_chars "*/"
 
-// TODO: is this grammar correct?
-// should not contain `/*` or `*/` together but can contain separately
+// TODO: is this correct?
+// should not contain both characters together but can contain them separated
 comment_chars
     ""
     (comment_char comment_chars) - "/*" - "*/"
