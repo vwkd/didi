@@ -1,10 +1,9 @@
+// Didi grammar in McKeeman Form extended with comments
+
 program
     cw variables cw
-    cw statements cw
-    cw variables cw statements cw
-
-
-
+    cw operations cw
+    cw variables cw operations cw
 
 variables
     variable
@@ -13,57 +12,22 @@ variables
 variable
     any_value cw "=" cw identifer
 
+// beware: can have double repitition, once at definition and once on the identifier, engine must repeat whole definition when repeated a second time
+// beware: can have circular definition when using identifiers in block, engine must check and throw error
 any_value
-    string_value_operated
+    boolean_value_op
     integer_value
-    boolean_value_operated
-// can itself be no step since it can't be a match
-// also not a stringlike since it can't have repetition itself, otherwise two ways to define repetition, on variable and/or in matching logic
-// beware: allows use of identifier through block within variable, engine must protect against infinite circular loop
-
-
-
-statements
-    statement
-    statement cw statements
-
-statement
-    step
-    branch
-
-
-
-step
     no_match
-    match
 
-no_match
-    stringlike
+boolean_value_op
+    boolean
+    boolean cw boolean_operator cw boolean_value_op
 
-match
-    stringlike_maybe_named cw ";"
+integer_value
+    integer
+    sequence
 
-stringlike_maybe_named
-    stringlike
-    stringlike cw "@" identifier
-
-stringlike
-    string_value_operated
-    string_value_operated cw repetition
-// todo: rename step_multiple or so
-
-repetition
-    rep_amount
-    rep_amount cw rep_mode
-
-rep_amount
-    integer_value
-    identifier
-
-rep_mode
-    "<"
-
-string_value_operated
+string_value_op
     string_value
     string_operator cw string_value
 
@@ -76,14 +40,50 @@ string_value
     block
     identifier
 
-block
-    "{" cw statements cw "}"
 // note: recursion!
+block
+    "{" cw operations cw "}"
 
+operations
+    operation
+    operation cw operations
 
+operation
+    progression
+    maybe_progression
 
-branch
-    conditions cw "?" cw step
+// TODO: better name
+progression
+    match
+    no_match
+
+match
+    string_value_rep_named cw ";"
+
+string_value_rep_named
+    string_value_rep
+    string_value_rep cw "@" identifier
+
+no_match
+    string_value_rep
+
+string_value_rep
+    string_value_op
+    string_value_op cw repetition
+
+repetition
+    repetition_amount
+    repetition_amount cw repetition_mode
+
+repetition_amount
+    integer_value
+    identifier
+
+repetition_mode
+    "<"
+
+maybe_progression
+    conditions cw "?" cw progression
 
 conditions
     condition
@@ -93,17 +93,16 @@ boolean_operator
     "&"
     "|"
 
+// beware: variable or block can contain `match`, but engine treats it as `no_match` since doesn't eat input string
+// doesn't want to disallow since can reuse same variable for condition and for progression, e.g. `hasFoo & hasBar ? hasFoo`
+// could disallow it just for block but would make grammar much more complicated
 condition
-    boolean_value_operated
-    string_value_operated
-// beware: block and variable can have `step` even though engine doesn't do step (eat), would need to have extra grammar to disallow it but engine can just ignore it, wants to allow it for variable anyways
-// allows to reuse same block (as variable) for condition and for step, e.g. `hasFoo & hasBar ? hasFoo`
+    boolean_value_op
+    no_match
 
-boolean_value_operated
-    boolean
-    boolean cw boolean_operator cw boolean_value_operated
-
-
+boolean
+    "true"
+    "false"
 
 integer
     digit
@@ -114,44 +113,27 @@ digits
     digit digits
 
 digit
-    "0"
-    "1"
-    ...
-    "9"
+    "0" . "9"
 
 nonzero_digit
-    "1"
-    ...
-    "9"
+    "1" . "9"
 
 sequence
-    integer_list
+    list
     range
 
-integer_list
-    "[" cw integers cw "]"
+list
+    "[" cw elements cw "]"
 
-integers
+elements
     integer
-    integer cw integers
+    integer cw elements
 
 range
     ".."
     integer ".."
     ".." integer
     integer ".." integer
-
-integer_value
-    sequence
-    integer
-
-
-
-boolean
-    "true"
-    "false"
-
-
 
 string
     '"' characters_dc '"'
@@ -182,19 +164,27 @@ character_bt
     UNICODE_CHARACTER - "`"
     "\" "`"
 
+// note: not empty, at least one
 identifier
-    lim_characters
+    first_char
+    first_char chars
 
-lim_characters
-    lim_character
-    lim_character lim_characters
+first_char
+    letter
+    "_"
 
-lim_character
-    UNICODE_CHARACTERS - whitesspace_char - ASCII_SYMBOLS
-// note: reserves ASCII_SYMBOLS for future
-// todo: maybe allow here only azAZ09_ for compatibility with older languages?
+chars
+    char
+    char chars
 
+char
+    letter
+    digit
+    "_"
 
+letter
+    'a' . 'z'
+    'A' . 'Z'
 
 cw
     whitespace
@@ -214,6 +204,8 @@ comments
 comment
     "/*" comment_chars "*/"
 
+// TODO: is this grammar correct?
+// should not contain `/*` or `*/` together but can contain separately
 comment_chars
     ""
     (comment_char comment_chars) - "/*" - "*/"
