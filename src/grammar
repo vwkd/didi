@@ -1,4 +1,6 @@
 program
+  cw variables cw
+  cw statements cw
   cw variables cw statements cw
 
 
@@ -10,14 +12,14 @@ variables
 
 variable
   any_value cw "=" cw identifer
-// todo: define a variables_NOMATCH?
 
 any_value
   string_value_operated
   integer_value
   boolean_value_operated
-// note: allows variable in block of variable, must protect against infinite loop of circular definition
-
+// can itself be no step since it can't be a match
+// also not a stringlike since it can't have repetition itself, otherwise two ways to define repetition, on variable and/or in matching logic
+// beware: allows use of identifier through block within variable, engine must protect against infinite circular loop
 
 
 
@@ -26,28 +28,29 @@ statements
   statement cw statements
 
 statement
-  eat
-  maybe_eat
+  step
+  branch
 
 
 
-eat
-  match
+step
   no_match
+  match
+
+no_match
+  stringlike
 
 match
-  unnamed_match
-  named_match
+  stringlike_maybe_named cw ";"
 
-unnamed_match
-  string_val cw ";"
+stringlike_maybe_named
+  stringlike
+  stringlike cw "@" identifier
 
-named_match
-  string_val cw "@" identifier cw ";"
-
-string_val
+stringlike
   string_value_operated
   string_value_operated cw repetition
+// todo: rename step_multiple or so
 
 repetition
   rep_amount
@@ -74,13 +77,13 @@ string_value
   identifier
 
 block
-  "{" cw statement cw "}"
+  "{" cw statements cw "}"
 // note: recursion!
 
 
 
-maybe_eat
-  conditions cw "?" cw string_val
+branch
+  conditions cw "?" cw step
 
 conditions
   condition
@@ -92,27 +95,13 @@ boolean_operator
 
 condition
   boolean_value_operated
-  string_value_operated_NOMATCH
+  string_value_operated
+// beware: block and variable can have `step` even though engine doesn't do step (eat), would need to have extra grammar to disallow it but engine can just ignore it, wants to allow it for variable anyways
+// allows to reuse same block (as variable) for condition and for step, e.g. `hasFoo & hasBar ? hasFoo`
 
-string_value_operated_NOMATCH
-  string_value_NOMATCH
-  string_operator cw string_value_NOMATCH
-
-string_value_NOMATCH
-  string
-  block_NOMATCH
-  identifier
-
-block_NOMATCH
-  "{" cw statement_NOMATCH cw "}"
-
-statement_NOMATCH
-  eat_NOMATCH
-  maybe_eat
-// note: recursion!
-
-eat_NOMATCH
-  no_match
+boolean_value_operated
+  boolean
+  boolean cw boolean_operator cw boolean_value_operated
 
 
 
@@ -162,10 +151,6 @@ boolean
   "true"
   "false"
 
-boolean_value_operated
-  boolean
-  boolean cw boolean_operator cw boolean_value_operated
-
 
 
 string
@@ -205,10 +190,22 @@ lim_characters
   lim_character lim_characters
 
 lim_character
-  UNICODE_CHARACTERS - ASCII_SYMBOLS
+  UNICODE_CHARACTERS - whitesspace_char - ASCII_SYMBOLS
 // note: reserves ASCII_SYMBOLS for future
+// todo: maybe allow here only azAZ09_ for compatibility with older languages?
 
 
+
+cw
+  whitespace
+  whitespace comments whitespace
+
+whitespace
+  ""
+  whitespace_char whitespace
+
+whitespace_char
+  UNICODE_WHITESPACE_CHARACTER
 
 comments
   comment
@@ -219,17 +216,7 @@ comment
 
 comment_chars
   ""
-  comment_char comment_chars - "/*" - "*/"
+  (comment_char comment_chars) - "/*" - "*/"
 
 comment_char
   UNICODE_CHARACTERS
-
-cw
-  whitespace comments whitespace
-
-whitespace
-  ""
-  whitespace_char whitespace
-
-whitespace_char
-  UNICODE_WHITESPACE_CHARACTER
