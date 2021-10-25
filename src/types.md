@@ -14,6 +14,8 @@ index: 4
 
 - no escaping necessary, except for quotes themselves
 - case-sensitive
+- can use either double quote, single quotes or backtick
+- escape using backslash
 
 
 

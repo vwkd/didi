@@ -1,0 +1,211 @@
+// Didi grammar in McKeeman Form extended with comments
+
+Program
+    cw Variables cw
+    cw Statements cw
+    cw Variables cw Statements cw
+
+Variables
+    Variable
+    Variable cw Variables
+
+Variable
+    AnyValue cw "=" cw Identifier
+
+// beware: can have double repitition, once at definition and once on the identifier, engine must repeat whole definition when repeated a second time
+// beware: can have circular definition when using identifiers in block, engine must check and throw error
+AnyValue
+    BooleanValue
+    NumberValue
+    Segment
+
+BooleanValue
+    Boolean
+    Boolean cw BooleanOperator cw BooleanValue
+
+NumberValue
+    Integer
+    Integers
+
+StringValue
+    StringCreator
+    StringOperator cw StringCreator
+
+StringOperator
+    "-"
+    "~"
+
+StringCreator
+    String
+    Block
+    Identifier
+
+Block
+    "{" cw Statements cw "}"
+
+Statements
+    Statement
+    Statement cw Operations
+
+Statement
+    Expression
+    Conditional
+
+// note: this eats the input string
+Expression
+    MatchedSegment
+    Segment
+
+MatchedSegment
+    NamedSegment cw ";"
+
+NamedSegment
+    Segment
+    Segment cw "@" Identifier
+
+Segment
+    StringValue
+    StringValue cw Repetition
+
+Repetition
+    RepetitionAmount
+    RepetitionAmount cw RepetitionMode
+
+RepetitionAmount
+    NumberValue
+    Identifier
+
+RepetitionMode
+    "<"
+
+Conditional
+    Conditions cw "?" cw Expression
+
+// note: this doesn't eat the input string
+Conditions
+    Condition
+    Condition cw BooleanOperator cw Conditions
+
+BooleanOperator
+    "&"
+    "|"
+
+// beware: variable or block can contain `MatchedSegment`es, engine must treat as `Segment` since doesn't eat input string
+// doesn't disallow for variable since want to reuse for both condition and movement, e.g. `hasFoo & hasBar ? hasFoo`
+// could disallow it just for block but would make grammar much more complicated
+Condition
+    BooleanValue
+    Segment
+
+Boolean
+    "true"
+    "false"
+
+Integer
+    Digit
+    NonZeroDigit Digits
+
+Digits
+    Digit
+    Digit Digits
+
+Digit
+    "0" . "9"
+
+NonZeroDigit
+    "1" . "9"
+
+Integers
+    Sequence
+    Range
+
+Sequence
+    "[" cw Elements cw "]"
+
+Elements
+    Integer
+    Integer cw Elements
+
+Range
+    ".."
+    Integer ".."
+    ".." Integer
+    Integer ".." Integer
+
+String
+    '"' NonDcChars '"'
+    "'" NonScChars "'"
+    "`" NonBtChars "`"
+
+NonDcChars
+    ""
+    NonDcChar NonDcChars
+
+NonDcChar
+    AnyChar - '"'
+    '\' '"'
+
+NonScChars
+    ""
+    NonScChar NonScChars
+
+NonScChar
+    AnyChar - "'"
+    "\" "'"
+
+NonBtChars
+    ""
+    NonBtChar NonBtChars
+
+NonBtChar
+    AnyChar - "`"
+    "\" "`"
+
+AnyChar
+    UNICODE_CHARACTER
+
+// note: not empty, at least one
+Identifier
+    AlphabeticalChar
+    AlphabeticalChar AlphanumericChars
+
+AlphanumericChars
+    AlphanumericChar
+    AlphanumericChar AlphanumericChars
+
+AlphabeticalChar
+    Letter
+    "_"
+
+AlphanumericChar
+    Letter
+    Digit
+    "_"
+
+Letter
+    'a' . 'z'
+    'A' . 'Z'
+
+cw
+    Whitespace
+    Whitespace Comments Whitespace
+
+Whitespace
+    ""
+    WhitespaceChar Whitespace
+
+WhitespaceChar
+    UNICODE_WHITESPACE_CHARACTER
+
+Comments
+    Comment
+    Comment cw Comments
+
+Comment
+    "/*" CommentChars "*/"
+
+// TODO: is this correct?
+// should not contain both characters together but can contain them separated
+CommentChars
+    ""
+    (AnyChar CommentChars) - "/*" - "*/"
