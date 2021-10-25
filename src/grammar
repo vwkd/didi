@@ -1,22 +1,22 @@
 program
-  cw variables cw
-  cw statements cw
-  cw variables cw statements cw
+    cw variables cw
+    cw statements cw
+    cw variables cw statements cw
 
 
 
 
 variables
-  variable
-  variable cw variables
+    variable
+    variable cw variables
 
 variable
-  any_value cw "=" cw identifer
+    any_value cw "=" cw identifer
 
 any_value
-  string_value_operated
-  integer_value
-  boolean_value_operated
+    string_value_operated
+    integer_value
+    boolean_value_operated
 // can itself be no step since it can't be a match
 // also not a stringlike since it can't have repetition itself, otherwise two ways to define repetition, on variable and/or in matching logic
 // beware: allows use of identifier through block within variable, engine must protect against infinite circular loop
@@ -24,199 +24,199 @@ any_value
 
 
 statements
-  statement
-  statement cw statements
+    statement
+    statement cw statements
 
 statement
-  step
-  branch
+    step
+    branch
 
 
 
 step
-  no_match
-  match
+    no_match
+    match
 
 no_match
-  stringlike
+    stringlike
 
 match
-  stringlike_maybe_named cw ";"
+    stringlike_maybe_named cw ";"
 
 stringlike_maybe_named
-  stringlike
-  stringlike cw "@" identifier
+    stringlike
+    stringlike cw "@" identifier
 
 stringlike
-  string_value_operated
-  string_value_operated cw repetition
+    string_value_operated
+    string_value_operated cw repetition
 // todo: rename step_multiple or so
 
 repetition
-  rep_amount
-  rep_amount cw rep_mode
+    rep_amount
+    rep_amount cw rep_mode
 
 rep_amount
-  integer_value
-  identifier
+    integer_value
+    identifier
 
 rep_mode
-  "<"
+    "<"
 
 string_value_operated
-  string_value
-  string_operator cw string_value
+    string_value
+    string_operator cw string_value
 
 string_operator
-  "-"
-  "~"
+    "-"
+    "~"
 
 string_value
-  string
-  block
-  identifier
+    string
+    block
+    identifier
 
 block
-  "{" cw statements cw "}"
+    "{" cw statements cw "}"
 // note: recursion!
 
 
 
 branch
-  conditions cw "?" cw step
+    conditions cw "?" cw step
 
 conditions
-  condition
-  condition cw boolean_operator cw conditions
+    condition
+    condition cw boolean_operator cw conditions
 
 boolean_operator
-  "&"
-  "|"
+    "&"
+    "|"
 
 condition
-  boolean_value_operated
-  string_value_operated
+    boolean_value_operated
+    string_value_operated
 // beware: block and variable can have `step` even though engine doesn't do step (eat), would need to have extra grammar to disallow it but engine can just ignore it, wants to allow it for variable anyways
 // allows to reuse same block (as variable) for condition and for step, e.g. `hasFoo & hasBar ? hasFoo`
 
 boolean_value_operated
-  boolean
-  boolean cw boolean_operator cw boolean_value_operated
+    boolean
+    boolean cw boolean_operator cw boolean_value_operated
 
 
 
 integer
-  digit
-  nonzero_digit digits
+    digit
+    nonzero_digit digits
 
 digits
-  digit
-  digit digits
+    digit
+    digit digits
 
 digit
-  "0"
-  "1"
-  ...
-  "9"
+    "0"
+    "1"
+    ...
+    "9"
 
 nonzero_digit
-  "1"
-  ...
-  "9"
+    "1"
+    ...
+    "9"
 
 sequence
-  integer_list
-  range
+    integer_list
+    range
 
 integer_list
-  "[" cw integers cw "]"
+    "[" cw integers cw "]"
 
 integers
-  integer
-  integer cw integers
+    integer
+    integer cw integers
 
 range
-  ".."
-  integer ".."
-  ".." integer
-  integer ".." integer
+    ".."
+    integer ".."
+    ".." integer
+    integer ".." integer
 
 integer_value
-  sequence
-  integer
+    sequence
+    integer
 
 
 
 boolean
-  "true"
-  "false"
+    "true"
+    "false"
 
 
 
 string
-  '"' characters_dc '"'
-  "'" characters_sc "'"
-  "`" characters_bt "`"
+    '"' characters_dc '"'
+    "'" characters_sc "'"
+    "`" characters_bt "`"
 
 characters_dc
-  ""
-  character_dc characters_dc
+    ""
+    character_dc characters_dc
 
 character_dc
-  UNICODE_CHARACTER - '"'
-  '\' '"'
+    UNICODE_CHARACTER - '"'
+    '\' '"'
 
 characters_sc
-  ""
-  character_sc characters_sc
+    ""
+    character_sc characters_sc
 
 character_sc
-  UNICODE_CHARACTER - "'"
-  "\" "'"
+    UNICODE_CHARACTER - "'"
+    "\" "'"
 
 characters_bt
-  ""
-  character_bt characters_bt
+    ""
+    character_bt characters_bt
 
 character_bt
-  UNICODE_CHARACTER - "`"
-  "\" "`"
+    UNICODE_CHARACTER - "`"
+    "\" "`"
 
 identifier
-  lim_characters
+    lim_characters
 
 lim_characters
-  lim_character
-  lim_character lim_characters
+    lim_character
+    lim_character lim_characters
 
 lim_character
-  UNICODE_CHARACTERS - whitesspace_char - ASCII_SYMBOLS
+    UNICODE_CHARACTERS - whitesspace_char - ASCII_SYMBOLS
 // note: reserves ASCII_SYMBOLS for future
 // todo: maybe allow here only azAZ09_ for compatibility with older languages?
 
 
 
 cw
-  whitespace
-  whitespace comments whitespace
+    whitespace
+    whitespace comments whitespace
 
 whitespace
-  ""
-  whitespace_char whitespace
+    ""
+    whitespace_char whitespace
 
 whitespace_char
-  UNICODE_WHITESPACE_CHARACTER
+    UNICODE_WHITESPACE_CHARACTER
 
 comments
-  comment
-  comment cw comments
+    comment
+    comment cw comments
 
 comment
-  "/*" comment_chars "*/"
+    "/*" comment_chars "*/"
 
 comment_chars
-  ""
-  (comment_char comment_chars) - "/*" - "*/"
+    ""
+    (comment_char comment_chars) - "/*" - "*/"
 
 comment_char
-  UNICODE_CHARACTERS
+    UNICODE_CHARACTERS
