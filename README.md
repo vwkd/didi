@@ -6,7 +6,7 @@ A string matching language that is more like a programming language and less lik
 
 ## What?
 
-Currently it's just a few examples. You can try it out in your head and see if you like it. Then maybe someone that actually knows how to write programs can come up with an implementation.
+Currently it's just words. You can try it out in your head. Maybe someone that actually knows how to write programs can come up with an implementation.
 
 
 
