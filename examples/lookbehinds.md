@@ -2,6 +2,7 @@
 
 
 
+<!-- todo: write some examples ->
 <!-- todo: start/end characters make regex not work anymore -->
 
 ## Contains
@@ -11,5 +12,3 @@
 ```
 ^(foo(?<=bar.*))$
 ```
-
-<!-- todo: find some useful examples... ->

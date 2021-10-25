@@ -2,7 +2,9 @@
 
 
 
-## Contains
+## Positive Lookaheads
+
+### Contains
 
 - condition is block with character classes of varying repetition
 
@@ -17,16 +19,12 @@
   any ..
 } = hasFoobar
 
-hasFoobar ?
-{
-  any .. ;
-}
+hasFoobar ? any .. ;
 ```
 
+### Contains multiple
 
-
-## Password
-
+- e.g. password
 - at least 12 characters
 - at least 1 uppercase letter
 - at least 1 lowercase letter
@@ -57,8 +55,11 @@ hasFoobar ?
 
 hasUppercase & hasLowercase & hasNumber = hasVariety
 
-hasVariety ?
-{
-  any 12.. ;
-}
+hasVariety ? any 12.. ;
 ```
+
+
+
+## Negative Lookaheads
+
+<!-- todo: write some examples -->
