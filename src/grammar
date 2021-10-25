@@ -1,49 +1,37 @@
-TODO:
-- boolean_value
-- number
-- identifier
-- lit_string
-- comments, should probably be `/* */` such that can put them simply wherever whitespace instead of needing concept of lines with new line
-
 program
-  ws var_defs ws statements ws
+  cw variables cw statements cw
 
-var_defs
-  var_def
-  var_def ws var_defs
 
-var_def
-  value ws "=" ws identifer
 
-value
-  block
-  str_value
-  num_value
-  boolean_value
+
+variables
+  variable
+  variable cw variables
+
+variable
+  any_value cw "=" cw identifer
+// todo: define a variables_NOMATCH?
+
+any_value
+  string_value_operated
+  integer_value
+  boolean_value_operated
 // note: allows variable in block of variable, must protect against infinite loop of circular definition
-// todo: define a var_defs_NOMATCH
 
-boolean_value
-  boolean_value_raw
-  boolean_value_raw ws boolean_operator ws boolean_value_raw
+
+
 
 statements
   statement
-  statement ws statements
+  statement cw statements
 
 statement
-  doing
-
-doing
   eat
   maybe_eat
 
-## EAT
+
 
 eat
-  meal
-
-meal
   match
   no_match
 
@@ -52,114 +40,196 @@ match
   named_match
 
 unnamed_match
-  str ws ";"
+  string_val cw ";"
 
 named_match
-  str ws "@" identifier ws ";"
+  string_val cw "@" identifier cw ";"
 
-str
-  str_value
-  str_value ws repetition
-
-// REPETITION
+string_val
+  string_value_operated
+  string_value_operated cw repetition
 
 repetition
   rep_amount
-  rep_amount ws rep_mode
+  rep_amount cw rep_mode
 
 rep_amount
-  amount
-  variable
-
-amount
-  lit_number
-  lit_sequence
-
-lit_number
-  number
-// todo: number
-
-lit_sequence
-  array_of_numbers
-  range
-
-array_of_numbers
-  "[" ws numbers_list ws "]"
-
-numbers_list
-  number
-  number ws numbers_list
-
-range
-  ".."
-  number ".."
-  ".." number
-  number ".." number
-
-variable
+  integer_value
   identifier
-// todo: delete variable for identifier directly
 
 rep_mode
   "<"
 
-## STR_VALUE
-
-str_value
-  str_value_raw
-  string_operator ws str_value_raw
+string_value_operated
+  string_value
+  string_operator cw string_value
 
 string_operator
   "-"
   "~"
 
-str_value_raw
-  lit_string
+string_value
+  string
   block
-  variable
+  identifier
 
 block
-  "{" ws statement ws "}" ##### RECURSION
+  "{" cw statement cw "}"
+// note: recursion!
 
-## MAYBE_EAT
+
 
 maybe_eat
-  conditions ws "?" ws str
+  conditions cw "?" cw string_val
 
 conditions
   condition
-  condition ws boolean_operator ws conditions
+  condition cw boolean_operator cw conditions
 
 boolean_operator
   "&"
   "|"
 
 condition
-  boolean_value
-  str_value_NOMATCH
+  boolean_value_operated
+  string_value_operated_NOMATCH
 
-str_value_NOMATCH
-  str_value_raw_NOMATCH
-  string_operator ws str_value_raw_NOMATCH
+string_value_operated_NOMATCH
+  string_value_NOMATCH
+  string_operator cw string_value_NOMATCH
 
-str_value_raw_NOMATCH
-  lit_string
+string_value_NOMATCH
+  string
   block_NOMATCH
-  variable
+  identifier
 
-block
-  "{" ws statement_NOMATCH ws "}"
+block_NOMATCH
+  "{" cw statement_NOMATCH cw "}"
 
 statement_NOMATCH
-  doing_NOMATCH
-
-doing_NOMATCH
   eat_NOMATCH
-  maybe_eat ##### RECURSION
+  maybe_eat
+// note: recursion!
 
 eat_NOMATCH
-  meal_NOMATCH
-
-meal_NOMATCH
   no_match
-// todo: delete meal in favour of directly
+
+
+
+integer
+  digit
+  nonzero_digit digits
+
+digits
+  digit
+  digit digits
+
+digit
+  "0"
+  "1"
+  ...
+  "9"
+
+nonzero_digit
+  "1"
+  ...
+  "9"
+
+sequence
+  integer_list
+  range
+
+integer_list
+  "[" cw integers cw "]"
+
+integers
+  integer
+  integer cw integers
+
+range
+  ".."
+  integer ".."
+  ".." integer
+  integer ".." integer
+
+integer_value
+  sequence
+  integer
+
+
+
+boolean
+  "true"
+  "false"
+
+boolean_value_operated
+  boolean
+  boolean cw boolean_operator cw boolean_value_operated
+
+
+
+string
+  '"' characters_dc '"'
+  "'" characters_sc "'"
+  "`" characters_bt "`"
+
+characters_dc
+  ""
+  character_dc characters_dc
+
+character_dc
+  UNICODE_CHARACTER - '"'
+  '\' '"'
+
+characters_sc
+  ""
+  character_sc characters_sc
+
+character_sc
+  UNICODE_CHARACTER - "'"
+  "\" "'"
+
+characters_bt
+  ""
+  character_bt characters_bt
+
+character_bt
+  UNICODE_CHARACTER - "`"
+  "\" "`"
+
+identifier
+  lim_characters
+
+lim_characters
+  lim_character
+  lim_character lim_characters
+
+lim_character
+  UNICODE_CHARACTERS - ASCII_SYMBOLS
+// note: reserves ASCII_SYMBOLS for future
+
+
+
+comments
+  comment
+  comment cw comments
+
+comment
+  "/*" comment_chars "*/"
+
+comment_chars
+  ""
+  comment_char comment_chars - "/*" - "*/"
+
+comment_char
+  UNICODE_CHARACTERS
+
+cw
+  whitespace comments whitespace
+
+whitespace
+  ""
+  whitespace_char whitespace
+
+whitespace_char
+  UNICODE_WHITESPACE_CHARACTER
