@@ -1,216 +1,211 @@
 // Didi grammar in McKeeman Form extended with comments
 
-program
-    cw variables cw
-    cw operations cw
-    cw variables cw operations cw
+Program
+    cw Variables cw
+    cw Statements cw
+    cw Variables cw Statements cw
 
-variables
-    variable
-    variable cw variables
+Variables
+    Variable
+    Variable cw Variables
 
-variable
-    any_value cw "=" cw identifer
+Variable
+    AnyValue cw "=" cw Identifier
 
 // beware: can have double repitition, once at definition and once on the identifier, engine must repeat whole definition when repeated a second time
 // beware: can have circular definition when using identifiers in block, engine must check and throw error
-any_value
-    boolean_value_op
-    integer_value
-    no_match
+AnyValue
+    BooleanValue
+    NumberValue
+    Segment
 
-boolean_value_op
-    boolean
-    boolean cw boolean_operator cw boolean_value_op
+BooleanValue
+    Boolean
+    Boolean cw BooleanOperator cw BooleanValue
 
-integer_value
-    integer
-    sequence
+NumberValue
+    Integer
+    Integers
 
-string_value_op
-    string_value
-    string_operator cw string_value
+StringValue
+    StringCreator
+    StringOperator cw StringCreator
 
-string_operator
+StringOperator
     "-"
     "~"
 
-string_value
-    string
-    block
-    identifier
+StringCreator
+    String
+    Block
+    Identifier
 
-// note: recursion!
-block
-    "{" cw operations cw "}"
+Block
+    "{" cw Statements cw "}"
 
-operations
-    operation
-    operation cw operations
+Statements
+    Statement
+    Statement cw Operations
 
-operation
-    progression
-    maybe_progression
+Statement
+    Expression
+    Conditional
 
-// TODO: better name
 // note: this eats the input string
-progression
-    match
-    no_match
+Expression
+    MatchedSegment
+    Segment
 
-match
-    string_value_rep_named cw ";"
+MatchedSegment
+    NamedSegment cw ";"
 
-string_value_rep_named
-    string_value_rep
-    string_value_rep cw "@" identifier
+NamedSegment
+    Segment
+    Segment cw "@" Identifier
 
-no_match
-    string_value_rep
+Segment
+    StringValue
+    StringValue cw Repetition
 
-string_value_rep
-    string_value_op
-    string_value_op cw repetition
+Repetition
+    RepetitionAmount
+    RepetitionAmount cw RepetitionMode
 
-repetition
-    repetition_amount
-    repetition_amount cw repetition_mode
+RepetitionAmount
+    NumberValue
+    Identifier
 
-repetition_amount
-    integer_value
-    identifier
-
-repetition_mode
+RepetitionMode
     "<"
 
-maybe_progression
-    conditions cw "?" cw progression
+Conditional
+    Conditions cw "?" cw Expression
 
 // note: this doesn't eat the input string
-conditions
-    condition
-    condition cw boolean_operator cw conditions
+Conditions
+    Condition
+    Condition cw BooleanOperator cw Conditions
 
-boolean_operator
+BooleanOperator
     "&"
     "|"
 
-// beware: variable or block can contain `match`es, engine must treat as `no_match` since doesn't eat input string
-// doesn't disallow for variable since want to reuse for both condition and progression, e.g. `hasFoo & hasBar ? hasFoo`
+// beware: variable or block can contain `MatchedSegment`es, engine must treat as `Segment` since doesn't eat input string
+// doesn't disallow for variable since want to reuse for both condition and movement, e.g. `hasFoo & hasBar ? hasFoo`
 // could disallow it just for block but would make grammar much more complicated
-condition
-    boolean_value_op
-    no_match
+Condition
+    BooleanValue
+    Segment
 
-boolean
+Boolean
     "true"
     "false"
 
-integer
-    digit
-    nonzero_digit digits
+Integer
+    Digit
+    NonZeroDigit Digits
 
-digits
-    digit
-    digit digits
+Digits
+    Digit
+    Digit Digits
 
-digit
+Digit
     "0" . "9"
 
-nonzero_digit
+NonZeroDigit
     "1" . "9"
 
-sequence
-    list
-    range
+Integers
+    Sequence
+    Range
 
-list
-    "[" cw elements cw "]"
+Sequence
+    "[" cw Elements cw "]"
 
-elements
-    integer
-    integer cw elements
+Elements
+    Integer
+    Integer cw Elements
 
-range
+Range
     ".."
-    integer ".."
-    ".." integer
-    integer ".." integer
+    Integer ".."
+    ".." Integer
+    Integer ".." Integer
 
-string
-    '"' characters_dc '"'
-    "'" characters_sc "'"
-    "`" characters_bt "`"
+String
+    '"' NonDcChars '"'
+    "'" NonScChars "'"
+    "`" NonBtChars "`"
 
-characters_dc
+NonDcChars
     ""
-    character_dc characters_dc
+    NonDcChar NonDcChars
 
-character_dc
-    UNICODE_CHARACTER - '"'
+NonDcChar
+    AnyChar - '"'
     '\' '"'
 
-characters_sc
+NonScChars
     ""
-    character_sc characters_sc
+    NonScChar NonScChars
 
-character_sc
-    UNICODE_CHARACTER - "'"
+NonScChar
+    AnyChar - "'"
     "\" "'"
 
-characters_bt
+NonBtChars
     ""
-    character_bt characters_bt
+    NonBtChar NonBtChars
 
-character_bt
-    UNICODE_CHARACTER - "`"
+NonBtChar
+    AnyChar - "`"
     "\" "`"
 
+AnyChar
+    UNICODE_CHARACTER
+
 // note: not empty, at least one
-identifier
-    first_char
-    first_char chars
+Identifier
+    AlphabeticalChar
+    AlphabeticalChar AlphanumericChars
 
-first_char
-    letter
+AlphanumericChars
+    AlphanumericChar
+    AlphanumericChar AlphanumericChars
+
+AlphabeticalChar
+    Letter
     "_"
 
-chars
-    char
-    char chars
-
-char
-    letter
-    digit
+AlphanumericChar
+    Letter
+    Digit
     "_"
 
-letter
+Letter
     'a' . 'z'
     'A' . 'Z'
 
 cw
-    whitespace
-    whitespace comments whitespace
+    Whitespace
+    Whitespace Comments Whitespace
 
-whitespace
+Whitespace
     ""
-    whitespace_char whitespace
+    WhitespaceChar Whitespace
 
-whitespace_char
+WhitespaceChar
     UNICODE_WHITESPACE_CHARACTER
 
-comments
-    comment
-    comment cw comments
+Comments
+    Comment
+    Comment cw Comments
 
-comment
-    "/*" comment_chars "*/"
+Comment
+    "/*" CommentChars "*/"
 
 // TODO: is this correct?
 // should not contain both characters together but can contain them separated
-comment_chars
+CommentChars
     ""
-    (comment_char comment_chars) - "/*" - "*/"
-
-comment_char
-    UNICODE_CHARACTERS
+    (AnyChar CommentChars) - "/*" - "*/"
