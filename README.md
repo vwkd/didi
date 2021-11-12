@@ -16,4 +16,4 @@ Regular Expressions are well known for being hard to read. It might look fine fo
   
 One day when reading a RegEx with an alternate `a|b` it reminded me of if..else logic in programming languages. I wondered why RegEx are so hard to read while programming languages aren't. Why can't a string matching language be more like a programming language? It seems that string matching language hasn't seen as much progress as it's only ever been second place to a real big programming language. Didi means "little brother" in Chinese.
 
-Thinking about it more as a programming language, more natural and readable syntax followed. Also using constructs that have proven themselves useful in programming languages but have never made their way into string matching languages like reusable bits in form of variables or reusable wholes in form of modules.
+Thinking about it more as a programming language, more natural and readable syntax followed. Also using constructs that have proven themselves useful in programming languages but have never made their way into string matching languages like control flow constructs and variables.

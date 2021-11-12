@@ -26,6 +26,5 @@ index: 1
 - amount of repeated matches between one and any don't need manual repetition
 - code defines entire behavior, no flags/modifiers on outside, e.g. amount of repeated matches, multiple lines, case insensitivity, etc.
 - variables for code reuse
-- modules for code reuse
 - nicer syntax, more like programming language
 - grouping doesn't also match
