@@ -32,7 +32,7 @@ index: 1
 - non-named match by default
 - string doesn't need escaping (except quotes)
 - like regex non-named capture group
-- beware: no implicit matching without a capture group
+- beware: no implicit matching without a capture group ❗️
 
 ```
 "a"

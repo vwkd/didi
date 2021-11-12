@@ -55,7 +55,7 @@ index: 3
 - name of match in output
 - can not repeat, needs to repeat a wrapping block instead
 - can also name match of variable
-- beware: name of match can be anything including name of variable
+- beware: name of match can be anything including name of variable ❗️
 
 ```
 h @ h

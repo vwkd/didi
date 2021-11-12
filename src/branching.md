@@ -21,7 +21,7 @@ index: 7
 
 - boolean value
 - use with string value and coercion
-- beware: little use in using boolean value directly since doesn't depend on input string
+- beware: little use in using boolean value directly since doesn't depend on input string ❗️
 
 ```
 - "hi" ? "hello";
@@ -46,7 +46,7 @@ notHi ?
 };
 ```
 
-- beware: a non-negated string literal value as condition makes little sense since can just match directly
+- beware: a non-negated string literal value as condition makes little sense since can just match directly ❗️
 
 ```
 "hello" ? "hello";
@@ -57,5 +57,6 @@ notHi ?
 ```
 
 - can use `&` for multiple conditions, must all be true
-- beware: doesn't make sense to use literal strings in multiple conditions since needs to have some overlapping values, use character classes instead, e.g. `any ..`
+- beware: doesn't make sense to use literal strings in multiple conditions since needs to have some overlapping values, use character classes instead, e.g. `any ..` ❗️
 - can create lookahead(s) using block(s) with character classes of varying repetition as condition(s), see Example
+- beware: doesn't make sense to use block as condition whose contents are matches, but allows anyways to make parsing simpler, just ignores the matches, treats them as if they are no matches ❗️
