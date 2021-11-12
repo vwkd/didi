@@ -70,6 +70,9 @@ Content
     StringValue
     StringValue cw Repetition
 
+// beware: fixed repetition can be specified as non-greedy, e.g. `*< 3`
+// engine must treat as if were normal "*" since fixed repetition can't change
+// doesn't disallow since would make grammar much more complicated due to identifier
 Repetition
     RepetitionMode cw RepetitionAmount
 
