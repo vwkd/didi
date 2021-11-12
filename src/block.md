@@ -40,7 +40,7 @@ index: 6
 {
   "hel";
   "lo";
-} 3;
+} * 3;
 ```
 
 - can also assign to variable in advance for reuse
@@ -64,10 +64,10 @@ index: 6
 
 ```
 {
-  any ..;
+  any * ..;
   "hello"
-  any ..;
-} ..;
+  any * ..;
+} * ..;
 ```
 
 - replaces regex global flag `g`

@@ -23,7 +23,7 @@ index: 3
 
 ```
 "foo"
-any ..;
+any * ..;
 "bar";
 ```
 
@@ -52,7 +52,7 @@ any ..;
 
 ```
 "foo";
-any ..;
+any * ..;
 "bar"
 ```
 

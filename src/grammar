@@ -71,15 +71,15 @@ Content
     StringValue cw Repetition
 
 Repetition
-    RepetitionAmount
-    RepetitionAmount cw RepetitionMode
+    RepetitionMode cw RepetitionAmount
 
 RepetitionAmount
     NumberValue
     Identifier
 
 RepetitionMode
-    "<"
+    "*"
+    "*<"
 
 Conditional
     Conditions cw "?" cw Action

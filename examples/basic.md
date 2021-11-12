@@ -77,22 +77,22 @@ index: 1
 ## Start and end
 
 - opt-in to anywhere instead of opt-out
-- `any ..` at both the beginning and end to match in middle
+- `any * ..` at both the beginning and end to match in middle
 
 ```
-any ..;
+any * ..;
 "a"
-any ..;
+any * ..;
 ```
 
 ```
 (a)
 ```
 
-- `any ..` at the beginning to match at end
+- `any * ..` at the beginning to match at end
 
 ```
-any ..;
+any * ..;
 "a"
 ```
 
@@ -100,18 +100,18 @@ any ..;
 (a)$
 ```
 
-- `any ..` at the end to match at beginning
+- `any * ..` at the end to match at beginning
 
 ```
 "a"
-any ..;
+any * ..;
 ```
 
 ```
 ^(a)
 ```
 
-- uses block repetition and greedy default, i.e. `any ..` eats as much of the input string as it can
+- uses block repetition and greedy default, i.e. `any * ..` eats as much of the input string as it can
 
 
 
@@ -120,7 +120,7 @@ any ..;
 - explicit repetition
 
 ```
-"a" 3
+"a" * 3
 ```
 
 ```
@@ -130,7 +130,7 @@ any ..;
 - ranges
 
 ```
-"a" 1..3
+"a" * 1..3
 ```
 
 ```
@@ -139,10 +139,10 @@ any ..;
 
 - shorthand ranges for either end
 - similar to regex
-- but no shorthand for `1..`
+- except no shorthand for `1..`
 
 ```
-"a" ..
+"a" * ..
 ```
 
 ```

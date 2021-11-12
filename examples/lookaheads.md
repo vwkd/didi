@@ -14,12 +14,12 @@ index: 5
 
 ```
 {
-  any ..;
+  any * ..;
   "foobar";
-  any ..;
+  any * ..;
 } = hasFoobar;
 
-hasFoobar ? any ..
+hasFoobar ? any * ..
 ```
 
 ```
@@ -36,26 +36,26 @@ hasFoobar ? any ..
 
 ```
 {
-  any ..;
+  any * ..;
   Letter;
-  any ..;
+  any * ..;
 } = hasUppercase;
 
 {
-  any ..;
+  any * ..;
   letter;
-  any ..;
+  any * ..;
 } = hasLowercase;
 
 {
-  any ..;
+  any * ..;
   digit;
-  any ..;
+  any * ..;
 } = hasNumber;
 
 hasUppercase & hasLowercase & hasNumber = hasVariety;
 
-hasVariety ? any 12..
+hasVariety ? any * 12..
 ```
 
 ```

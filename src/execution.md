@@ -14,7 +14,7 @@ index: 3
 - starts from beginning to end of the input string
 - if no code path works out until the very end then breaks with error of no match
 - can think of not having navigated the world of the input string correctly
-- must explicitly navigate input string to only match something in middle, see later Block using `any ..`
+- must explicitly navigate input string to only match something in middle, see later Block using `any * ..`
 - replaces regex multiline flag `m`
 
 
@@ -72,15 +72,15 @@ h @ h
 - can give non-negative integer for repetition
 
 ```
-"hello" 3;
+"hello" * 3;
 ```
 
 - can give sequence for varying repetition
 - defaults to greedy
-- can give optional second argument after sequence for ungreedy
+- can make ungreedy
 
 ```
-"hello" 1..3 <;
+"hello" *< 1..3;
 ```
 
 - note, to make optional use sequence that includes `0`, e.g. `0..1`
