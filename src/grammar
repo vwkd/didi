@@ -2,15 +2,15 @@
 
 Program
     cw
-    cw Variables cw
-    cw Expressions cw
-    cw Variables cw Expressions cw
+    cw Declarations cw
+    cw Operations cw
+    cw Declarations cw Operations cw
 
-Variables
-    Variable
-    Variable cw Variables
+Declarations
+    Declaration
+    Declaration cw Declarations
 
-Variable
+Declaration
     AnyValue cw "=" cw Identifier cw ";"
 
 // beware: repetition can be declared twice, once when variable is defined and once when used
@@ -20,7 +20,7 @@ Variable
 AnyValue
     BooleanValue
     NumberValue
-    Segment
+    Content
 
 BooleanValue
     Boolean
@@ -44,29 +44,29 @@ StringCreator
     Identifier
 
 Block
-    "{" cw Expressions cw "}"
+    "{" cw Operations cw "}"
 
-Expressions
-    Expression
-    Expression cw Expressions
+Operations
+    Operation
+    Operation cw Operations
 
-Expression
-    Statement
+Operation
+    Action
     Conditional
 
 // note: this eats the input string
+Action
+    Statement
+    Expression
+
 Statement
-    NonMatchedSegment
-    Segment
+    Expression cw ";"
 
-NonMatchedSegment
-    NamedSegment cw ";"
+Expression
+    Content
+    Content cw "@" Identifier
 
-NamedSegment
-    Segment
-    Segment cw "@" Identifier
-
-Segment
+Content
     StringValue
     StringValue cw Repetition
 
@@ -82,7 +82,7 @@ RepetitionMode
     "<"
 
 Conditional
-    Conditions cw "?" cw Statement
+    Conditions cw "?" cw Action
 
 // note: this doesn't eat the input string
 Conditions
@@ -93,13 +93,13 @@ BooleanOperator
     "&"
     "|"
 
-// beware: condition can have block that contains `NonMatchedSegment`es
-// engine must treat as `Segment` since condition doesn't eat input string
+// beware: condition can have block that contains `Statement`s
+// engine must treat as `Expression` since condition doesn't eat input string
 // doesn't disallow since would make grammar much more complicated
 // and if in variable couldn't reuse it for both condition and movement, e.g. `hasFoo & hasBar ? hasFoo`
 Condition
     BooleanValue
-    Segment
+    Content
 
 Boolean
     "true"
