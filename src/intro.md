@@ -21,8 +21,7 @@ index: 1
 
 ## Advantages
 
-- language is by default code instead of string matching, needs to opt-in instead of opt-out
-- doesn't match by default, needs to opt-in instead of opt-out
+- language reads more like code
 - no escaping necessary (except quotes)
 - amount of repeated matches between one and any don't need manual repetition
 - code defines entire behavior, no flags/modifiers on outside, e.g. amount of repeated matches, multiple lines, case insensitivity, etc.

@@ -18,7 +18,7 @@ index: 9
 - import variable
 
 ```
-import url, email from mod
+import url, email from mod;
 ```
 
 <!-- todo: where to specify the modules? most portable from simple URL in import? -->
@@ -31,11 +31,11 @@ import url, email from mod
 - export variable
 
 ```
-"hello" = h pub
+"hello" = h pub;
 ```
 
 ```
 {
   // definition...
-} = email pub
+} = email pub;
 ```

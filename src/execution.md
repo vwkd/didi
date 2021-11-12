@@ -24,8 +24,8 @@ index: 3
 - recommends to use separate line for each string for readability
 
 ```
-"hel"
-"lo"
+"hel";
+"lo";
 ```
 
 - can think of implicit comparisons against input string
@@ -34,14 +34,14 @@ index: 3
 
 ## Match
 
-- a statement
-- an expression is no match, needs to opt-in instead of opt-out
+- an expression
+- a statement is no match
 - implementation must return collection since with capture groups can always have multiple matches, e.g. array
 - code fully defines amount of matches, not different flags and modifiers on outside, engine has only single mode of execution
 
 ```
-"hel"
-"lo";
+"hel";
+"lo"
 ```
 
 - replaces regex capture groups, non-capturing atomic groups
@@ -49,7 +49,7 @@ index: 3
 ### Named match
 
 ```
-"hello" @ h;
+"hello" @ h
 ```
 
 - name of match in output
@@ -58,7 +58,7 @@ index: 3
 - beware: name of match can be anything including name of variable
 
 ```
-h @ h;
+h @ h
 ```
 
 - replaces regex named capture groups
@@ -72,7 +72,7 @@ h @ h;
 - can give non-negative integer for repetition
 
 ```
-"hello" 3
+"hello" 3;
 ```
 
 - can give sequence for varying repetition
@@ -80,7 +80,7 @@ h @ h;
 - can give optional second argument after sequence for ungreedy
 
 ```
-"hello" 1..3 <
+"hello" 1..3 <;
 ```
 
 - note, to make optional use sequence that includes `0`, e.g. `0..1`

@@ -24,7 +24,7 @@ index: 7
 - beware: little use in using boolean value directly since doesn't depend on input string
 
 ```
-- "hi" ? "hello"
+- "hi" ? "hello";
 ```
 
 - recommends to use variable for condition to make it more readable
@@ -32,7 +32,7 @@ index: 7
 ```
 - "hi" = notHi
 
-notHi ? "hello"
+notHi ? "hello";
 ```
 
 - recommends to use block for string value to make it more readable
@@ -42,18 +42,18 @@ notHi ? "hello"
 
 notHi ?
 {
-  "hello"
-}
+  "hello";
+};
 ```
 
 - beware: a non-negated string literal value as condition makes little sense since can just match directly
 
 ```
-"hello" ? "hello"
+"hello" ? "hello";
 ```
 
 ```
-"hello"
+"hello";
 ```
 
 - can use `&` for multiple conditions, must all be true

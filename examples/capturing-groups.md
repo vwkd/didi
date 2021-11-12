@@ -9,12 +9,12 @@ index: 3
 ## Followed by
 
 ```
-^(foo(?=bar))$
+"foo"
+"bar";
 ```
 
 ```
-"foo";
-"bar"
+^(foo(?=bar))$
 ```
 
 
@@ -22,13 +22,13 @@ index: 3
 ## Ends in
 
 ```
-^(foo(?=.*bar))$
+"foo"
+any ..;
+"bar";
 ```
 
 ```
-"foo";
-any ..
-"bar"
+^(foo(?=.*bar))$
 ```
 
 
@@ -36,12 +36,12 @@ any ..
 ## Preceeded by
 
 ```
-^((?<=foo)bar)$
+"foo";
+"bar"
 ```
 
 ```
-"foo"
-"bar";
+^((?<=foo)bar)$
 ```
 
 
@@ -51,11 +51,11 @@ any ..
 - invalid regex
 
 ```
-^((?<=foo.*)bar)$
+"foo";
+any ..;
+"bar"
 ```
 
 ```
-"foo"
-any ..
-"bar";
+^((?<=foo.*)bar)$
 ```

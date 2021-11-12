@@ -9,37 +9,23 @@ index: 4
 ## Simple
 
 ```
+"a" ? "a"
+"b" ? "b"
+```
+
+```
 ^(a)|(b)$
 ```
 
-```
-"a" ?
-{
-  "a";
-}
-
-"b" ?
-{
-  "b";
-}
-```
-
-- can also name the whole thing
+- can also name it
 
 ```
-^(a|b)$
+^(?'aorb'a|b)$
 ```
 
 ```
 {
-  "a" ?
-  {
-    "a"
-  }
-
-  "b" ?
-  {
-    "b"
-  }
-};
+  "a" ? "a";
+  "b" ? "b";
+} @ aorb
 ```

@@ -9,8 +9,8 @@ index: 5
 ## Introduction
 
 ```
-"hello" = h
-1..10 = ten
+"hello" = h;
+1..10 = ten;
 ```
 
 - a named constant value
@@ -18,4 +18,5 @@ index: 5
 - has a type, can only be used where type can be used
 - declared at beginning of file
 - not part of matching logic
+- beware: must be statement ❗️
 - implementation uses simple substitution

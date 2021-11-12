@@ -19,36 +19,37 @@ index: 6
 
 ```
 {
- "hel"
- "lo"
-}
+ "hel";
+ "lo";
+};
 ```
 
+- beware: don't forget to make block a statement as well, not just contents ❗️
 - can also match
 
 ```
 {
-  "hel"
-  "lo"
-};
+  "hel";
+  "lo";
+}
 ```
 
 - can also repeat
 
 ```
 {
-  "hel"
-  "lo"
-} 3
+  "hel";
+  "lo";
+} 3;
 ```
 
 - can also assign to variable in advance for reuse
 
 ```
 {
-  "hel"
-  "lo"
-} = hello
+  "hel";
+  "lo";
+} = hello;
 ```
 
 - built-in blocks for character classes, e.g. `any`, `anyButNewline`, `whitespace`, `digit`, `letter`, etc.
@@ -63,10 +64,10 @@ index: 6
 
 ```
 {
-  any ..
-  "hello";
-  any ..
-} ..
+  any ..;
+  "hello"
+  any ..;
+} ..;
 ```
 
 - replaces regex global flag `g`

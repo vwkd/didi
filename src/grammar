@@ -1,19 +1,22 @@
 // Didi grammar in McKeeman Form extended with comments
 
 Program
+    cw
     cw Variables cw
-    cw Statements cw
-    cw Variables cw Statements cw
+    cw Expressions cw
+    cw Variables cw Expressions cw
 
 Variables
     Variable
     Variable cw Variables
 
 Variable
-    AnyValue cw "=" cw Identifier
+    AnyValue cw "=" cw Identifier cw ";"
 
-// beware: can have double repitition, once at definition and once on the identifier, engine must repeat whole definition when repeated a second time
-// beware: can have circular definition when using identifiers in block, engine must check and throw error
+// beware: repetition can be declared twice, once when variable is defined and once when used
+// engine repeats whole thing, i.e. repeats the already repeated
+// beware: can have circular definition when using identifiers in block
+// engine must check for circularity and throw error
 AnyValue
     BooleanValue
     NumberValue
@@ -41,22 +44,22 @@ StringCreator
     Identifier
 
 Block
-    "{" cw Statements cw "}"
+    "{" cw Expressions cw "}"
 
-Statements
-    Statement
-    Statement cw Operations
-
-Statement
+Expressions
     Expression
+    Expression cw Expressions
+
+Expression
+    Statement
     Conditional
 
 // note: this eats the input string
-Expression
-    MatchedSegment
+Statement
+    NonMatchedSegment
     Segment
 
-MatchedSegment
+NonMatchedSegment
     NamedSegment cw ";"
 
 NamedSegment
@@ -79,7 +82,7 @@ RepetitionMode
     "<"
 
 Conditional
-    Conditions cw "?" cw Expression
+    Conditions cw "?" cw Statement
 
 // note: this doesn't eat the input string
 Conditions
@@ -90,9 +93,10 @@ BooleanOperator
     "&"
     "|"
 
-// beware: variable or block can contain `MatchedSegment`es, engine must treat as `Segment` since doesn't eat input string
-// doesn't disallow for variable since want to reuse for both condition and movement, e.g. `hasFoo & hasBar ? hasFoo`
-// could disallow it just for block but would make grammar much more complicated
+// beware: condition can have block that contains `NonMatchedSegment`es
+// engine must treat as `Segment` since condition doesn't eat input string
+// doesn't disallow since would make grammar much more complicated
+// and if in variable couldn't reuse it for both condition and movement, e.g. `hasFoo & hasBar ? hasFoo`
 Condition
     BooleanValue
     Segment

@@ -15,7 +15,7 @@ index: 8
 ## Negation
 
 ```
-- "hello"
+- "hello";
 ```
 
 - compares to input string with "not equal" instead of "equal"
@@ -27,7 +27,7 @@ index: 8
 ## Case insensitivity
 
 ```
-~ "hello"
+~ "hello";
 ```
 
 - compares to input string case insensitively

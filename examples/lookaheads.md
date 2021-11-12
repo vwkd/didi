@@ -13,17 +13,17 @@ index: 5
 - condition is block with character classes of varying repetition
 
 ```
-^((?=foobar).+)$
-```
-
-```
 {
-  any ..
-  "foobar"
-  any ..
-} = hasFoobar
+  any ..;
+  "foobar";
+  any ..;
+} = hasFoobar;
 
-hasFoobar ? any .. ;
+hasFoobar ? any ..
+```
+
+```
+^((?=foobar).+)$
 ```
 
 ### Contains multiple
@@ -35,31 +35,31 @@ hasFoobar ? any .. ;
 - at least 1 number
 
 ```
+{
+  any ..;
+  Letter;
+  any ..;
+} = hasUppercase;
+
+{
+  any ..;
+  letter;
+  any ..;
+} = hasLowercase;
+
+{
+  any ..;
+  digit;
+  any ..;
+} = hasNumber;
+
+hasUppercase & hasLowercase & hasNumber = hasVariety;
+
+hasVariety ? any 12..
+```
+
+```
 ^((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{12,})$
-```
-
-```
-{
-  any ..
-  Letter
-  any ..
-} = hasUppercase
-
-{
-  any ..
-  letter
-  any ..
-} = hasLowercase
-
-{
-  any ..
-  digit
-  any ..
-} = hasNumber
-
-hasUppercase & hasLowercase & hasNumber = hasVariety
-
-hasVariety ? any 12.. ;
 ```
 
 

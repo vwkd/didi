@@ -8,12 +8,12 @@ index: 1
 
 ## Non-match
 
-- non-match by default
+- statement
 - only eats up input string for subsequent matches
 - no equivalent in regex, always matches the whole
 
 ```
-"a"
+"a";
 ```
 
 ```
@@ -28,14 +28,14 @@ index: 1
 
 ## Match
 
-- non-named match using ";"
-- opt-in for match instead of opt-out
+- expression
+- non-named match by default
 - string doesn't need escaping (except quotes)
 - like regex non-named capture group
 - beware: no implicit matching without a capture group
 
 ```
-"a";
+"a"
 ```
 
 ```
@@ -47,9 +47,9 @@ index: 1
 - no equivalent in regex, always matches the whole
 
 ```
-"a"
-"b";
-"c"
+"a";
+"b"
+"c";
 ```
 
 ```
@@ -65,7 +65,7 @@ index: 1
 - like regex named capture group
 
 ```
-"a" @ m1;
+"a" @ m1
 ```
 
 ```
@@ -80,9 +80,9 @@ index: 1
 - `any ..` at both the beginning and end to match in middle
 
 ```
-any ..
-"a";
-any ..
+any ..;
+"a"
+any ..;
 ```
 
 ```
@@ -92,8 +92,8 @@ any ..
 - `any ..` at the beginning to match at end
 
 ```
-any ..
-"a";
+any ..;
+"a"
 ```
 
 ```
@@ -103,8 +103,8 @@ any ..
 - `any ..` at the end to match at beginning
 
 ```
-"a";
-any ..
+"a"
+any ..;
 ```
 
 ```
@@ -120,7 +120,7 @@ any ..
 - explicit repetition
 
 ```
-"a" 3;
+"a" 3
 ```
 
 ```
@@ -130,7 +130,7 @@ any ..
 - ranges
 
 ```
-"a" 1..3;
+"a" 1..3
 ```
 
 ```
@@ -142,7 +142,7 @@ any ..
 - but no shorthand for `1..`
 
 ```
-"a" .. ;
+"a" ..
 ```
 
 ```
