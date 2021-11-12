@@ -13,10 +13,11 @@ index: 5
 1..10 = ten;
 ```
 
-- a named constant value
-- can't reassign or do any computations with it
-- has a type, can only be used where type can be used
+- named constant value
+- beware: syntax is backwards from usual programming language ❗️
+- can't reassign, no computations
+- has inferred type, can only be used where type can be used
+- implementation uses simple substitution
 - declared at beginning of file
 - not part of matching logic
 - beware: must be statement ❗️
-- implementation uses simple substitution
