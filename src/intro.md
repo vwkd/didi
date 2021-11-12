@@ -12,19 +12,24 @@ index: 1
 
 
 
+## Differences to RegEx
+
+- code defines behavior, no flags/modifiers on outside
+  - code for repeated matches
+  - code for amount of repeated matches, not just one or any
+  - code for case insensitivity
+  - code for multiple lines
+  - etc.
+- single match by default, not multiple
+- start to end by default, not anywhere
+- grouping is distinct from matching
+- no escaping necessary (except quotes)
+- reads like programming language
+- variables for code reuse
+
+
+
 ## Principles
 
 - be readable
 - be functional since no (explicit) input and output
-
-
-
-## Advantages
-
-- language reads more like code
-- no escaping necessary (except quotes)
-- amount of repeated matches between one and any don't need manual repetition
-- code defines entire behavior, no flags/modifiers on outside, e.g. amount of repeated matches, multiple lines, case insensitivity, etc.
-- variables for code reuse
-- nicer syntax, more like programming language
-- grouping doesn't also match

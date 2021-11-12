@@ -16,7 +16,8 @@ index: 5
 - named constant value
 - beware: syntax is backwards from usual programming language ❗️
 - can't reassign, no computations
-- has inferred type, can only be used where type can be used
+- has inferred type, no type annotations
+- statically typed, can only be used where type can be used
 - implementation uses simple substitution
 - declared at beginning of file
 - not part of matching logic

@@ -11,7 +11,6 @@ index: 6
 - grouping of string values
 - separate syntax from capturing group, doesn't mix up like regex
 - replaces non-capturing group
-<!-- todo: does this really cover all grouping functionality of regex? -->
 
 
 
@@ -24,7 +23,7 @@ index: 6
 };
 ```
 
-- beware: don't forget to make block a statement as well, not just contents ❗️
+- block itself is value, must be statement or expression
 - can also match
 
 ```
@@ -71,3 +70,12 @@ index: 6
 ```
 
 - replaces regex global flag `g`
+- can specify repetition precisely, not just once or any
+
+```
+{
+  any * ..;
+  "hello"
+  any * ..;
+} * 3;
+```

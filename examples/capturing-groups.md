@@ -48,7 +48,7 @@ any * ..;
 
 ## Beginns in
 
-- invalid regex
+<!-- todo: currently invalid regex?! -->
 
 ```
 "foo";
