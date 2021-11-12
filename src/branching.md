@@ -24,13 +24,13 @@ index: 7
 - beware: little use in using boolean value directly since doesn't depend on input string ❗️
 
 ```
-- "hi" ? "hello";
+! "hi" ? "hello";
 ```
 
 - recommends to use variable for condition to make it more readable
 
 ```
-- "hi" = notHi
+! "hi" = notHi
 
 notHi ? "hello";
 ```
@@ -38,7 +38,7 @@ notHi ? "hello";
 - recommends to use block for string value to make it more readable
 
 ```
-- "hi" = notHi
+! "hi" = notHi
 
 notHi ?
 {

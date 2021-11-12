@@ -35,7 +35,7 @@ StringValue
     StringOperator cw StringCreator
 
 StringOperator
-    "-"
+    "!"
     "~"
 
 StringCreator

@@ -15,7 +15,7 @@ index: 8
 ## Negation
 
 ```
-- "hello";
+! "hello";
 ```
 
 - compares to input string with "not equal" instead of "equal"
