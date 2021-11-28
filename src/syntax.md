@@ -2,15 +2,11 @@
 title: Syntax
 index: 2
 ---
-# Syntax
-
-
 
 ## Intro
 
 - whitespace and linebreaks are insignificant
-- there is no notion of lines
-- lines are purely stylistic
+- no lines, lines are purely for readability, e.g. no single-line comment
 
 
 

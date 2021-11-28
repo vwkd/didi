@@ -2,9 +2,6 @@
 title: Logic
 index: 8
 ---
-# Logic
-
-
 
 ## Introduction
 

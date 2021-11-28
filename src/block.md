@@ -2,14 +2,12 @@
 title: Block
 index: 6
 ---
-# Block
-
-
 
 ## Introduction
 
 - grouping of string values
-- separate syntax from capturing group, doesn't mix up like regex
+- different from matching, doesn't overload like regex capturing group
+- can use matching and repetition on block
 - replaces non-capturing group
 
 

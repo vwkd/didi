@@ -2,17 +2,14 @@
 title: Branching
 index: 7
 ---
-# Branching
-
-
 
 ## Introduction
 
 - conditionally used string value
 - creates a code path
-- for multiple branches uses first one that works, short-circuit
-- only ever one code path is used since since input string is consumed by it
-- no "else" in favour of separate "if"s
+- no "else" since is same as two consecutive "if"s since input string is consumed by code path that is used
+- for multiple "if"s uses first one that works, short-circuit
+- use nested "if"s to continue on a given code path instead of consecutive "if"s
 - replaces regex lookahead, lookbehind, conditional statement, or, lookahead conditional, lookbehind conditional, etc.
 
 
@@ -25,6 +22,25 @@ index: 7
 
 ```
 ! "hi" ? "hello";
+```
+
+- beware: a non-negated string literal value as condition makes little sense since can just match directly ❗️
+
+```
+"hello" ? "hello";
+```
+
+```
+"hello";
+```
+
+```
+"a" ? "a"
+"b" ? "b"
+```
+
+```
+^(a)|(b)$
 ```
 
 - recommends to use variable for condition to make it more readable
@@ -46,17 +62,22 @@ notHi ?
 };
 ```
 
-- beware: a non-negated string literal value as condition makes little sense since can just match directly ❗️
 
-```
-"hello" ? "hello";
-```
 
-```
-"hello";
-```
+## Multiple conditions
 
 - can use `&` for multiple conditions, must all be true
 - beware: doesn't make sense to use literal strings in multiple conditions since needs to have some overlapping values, use character classes instead, e.g. `any * ..` ❗️
-- can create lookahead(s) using block(s) with character classes of varying repetition as condition(s), see Example
+- can create lookahead using block with anywhere
+
+```
+{
+  any * ..;
+  "hello";
+  any * ..;
+} = hasHello;
+
+hasHello ? any * ..
+```
+
 - beware: doesn't make sense to use block as condition whose contents are matches, but allows anyways to make parsing simpler, just ignores the matches, treats them as if they are no matches ❗️

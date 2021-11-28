@@ -2,40 +2,74 @@
 title: Execution
 index: 3
 ---
-# Execution
-
-
 
 ## Intro
 
-- code paths navigate the input string
-- can think of going through the world of the input string
+```
+"hello";
+" ";
+"world";
+```
+
+- writes strings
+- string doesn't need escaping (except quotes)
 - a string value is compared to beginning of input string, if equals then eats up that beginning of input string
+- can think of implicit comparisons against input string
 - starts from beginning to end of the input string
+- language creates code paths that can navigate the input string
+- can think of going through the world of the input string
 - if no code path works out until the very end then breaks with error of no match
 - can think of not having navigated the world of the input string correctly
-- must explicitly navigate input string to only match something in middle, see later Block using `any * ..`
-- replaces regex multiline flag `m`
-
-
-
-## Syntax
-
 - recommends to use separate line for each string for readability
 
+
+
+## Non-match
+
+- statement
+- only eats up input string
+- no equivalent in regex since always matches the whole
+- beware: no implicit matching without a capture group ❗️
+
 ```
-"hel";
-"lo";
+"a";
 ```
 
-- can think of implicit comparisons against input string
+```
+// except whole match, i.e. empty
+^a$
+```
 
 
 
 ## Match
 
-- an expression
-- a statement is no match
+- expression
+- non-named match by default
+- like regex non-named capture group
+
+```
+"a"
+```
+
+```
+^(a)$
+```
+
+- select exactly matches that wants
+- beware: doesn't return whole ❗️
+
+```
+"a";
+"b"
+"c";
+```
+
+```
+// minus whole match, i.e. only "b"
+^a(b)c$
+```
+
 - implementation must return collection since with capture groups can always have multiple matches, e.g. array
 - code fully defines amount of matches, not different flags and modifiers on outside, engine has only single mode of execution
 
@@ -48,17 +82,15 @@ index: 3
 
 ### Named match
 
-```
-"hello" @ h
-```
-
-- name of match in output
-- can not repeat, needs to repeat a wrapping block instead
-- can also name match of variable
-- beware: name of match can be anything including name of variable ❗️
+- identifier of match in output
+- like regex named capture group
 
 ```
-h @ h
+"a" @ m1
+```
+
+```
+^(?<m1>a)$
 ```
 
 - replaces regex named capture groups
@@ -68,23 +100,130 @@ h @ h
 
 ## Repetition
 
-- by default a string value is used exactly once
-- can give non-negative integer for repetition
+- shorthand for writing same string value(s) multiple times
+- single match by default
+- needs to opt-in into repetition explicitly
+- replaces regex multiline flag `m`
 
 ```
-"hello" * 3;
+"a" * 3
 ```
 
-- can give sequence for varying repetition
-- defaults to greedy
-- can make ungreedy
-
 ```
-"hello" *< 1..3;
+^(a)(a)(a)$
 ```
 
-- note, to make optional use sequence that includes `0`, e.g. `0..1`
-- replaces regex quantifiers `?`, `*`, `+`, `{3}`, `{3,}`, `{1,3}` 
+- beware: must come before identifier if named match ❗️
+
+### Varying repetition
+
+- range or sequence to choose amount of repetition from
+- defaults to repeat as much as possible, "greedy"
+- range
+
+```
+"a" * 1..3
+```
+
+```
+^(a){1,3}$
+```
+
+- shorthand ranges for either end
+- similar to regex
+
+```
+"a" * 1..
+```
+
+```
+^(a){1,}
+```
+
+```
+"a" * ..3
+```
+
+```
+^(a){,3}
+```
+
+```
+"a" * ..
+```
+
+```
+^(a){,}
+```
+
+- sequence
+
+```
+"a" * [1 3 5]
+```
+
+- no equivalent in regex
+- can make non-greedy
+
+```
+"a" *< 1..3;
+```
+
+- beware: no other shorthand for `1..` ❗️
+- replaces regex quantifiers `?`, `+`, `{3}`, `{3,}`, `{1,3}`
+- beware: doesn't make sense to specify non-greedy on fixed repetition, but allows anyways to make parsing simpler, just ignores it, treats as if hadn't specified non-greedy ❗️
+
+#### Anywhere
+
+- use `any` character class and varying repetition
+- must explicitly navigate input string to only match something in middle
+- opt-in to anywhere instead of opt-out
+- `any * ..` at the beginning to match at end
+
+```
+any * ..;
+"a"
+```
+
+```
+(a)$
+```
+
+- `any * ..` at the end to match at beginning
+
+```
+"a"
+any * ..;
+```
+
+```
+^(a)
+```
+
+- `any * ..` at both the beginning and end to match in middle
+
+```
+any * ..;
+"a"
+any * ..;
+```
+
+```
+(a)
+```
+
+- uses block repetition and greedy default, i.e. `any * ..` eats as much of the input string as it can
+- replaces regex `^` and `$`
+
+### Optional
+
+- range or sequence that contains zero
+
+```
+"a" * 0..1;
+```
+
+- replaces regex quantifier `*`
 
 
 
