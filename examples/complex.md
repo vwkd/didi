@@ -1,32 +1,9 @@
 ---
-title: Lookaheads
-index: 5
+title: Complex
+index: 2
 ---
-# Lookaheads
 
-
-
-## Positive Lookaheads
-
-### Contains
-
-- condition is block with character classes of varying repetition
-
-```
-{
-  any * ..;
-  "foobar";
-  any * ..;
-} = hasFoobar;
-
-hasFoobar ? any * ..
-```
-
-```
-^((?=foobar).+)$
-```
-
-### Contains multiple
+## Contains multiple
 
 - e.g. password
 - at least 12 characters
@@ -61,9 +38,3 @@ hasVariety ? any * 12..
 ```
 ^((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{12,})$
 ```
-
-
-
-## Negative Lookaheads
-
-<!-- todo: write some examples -->

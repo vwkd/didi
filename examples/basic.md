@@ -1,150 +1,148 @@
 ---
-title: Introduction
+title: Basic
 index: 1
 ---
-# Introduction
-
-
-
-## Non-match
-
-- statement
-- only eats up input string for subsequent matches
-- no equivalent in regex, always matches the whole
-
-```
-"a";
-```
-
-```
-// except whole match, i.e. empty
-^a$
-```
-
-- by default single match not multiple
-- by default start and end not anywhere
-
-
+<!-- todo: more examples -->
 
 ## Match
 
-- expression
-- non-named match by default
-- string doesn't need escaping (except quotes)
-- like regex non-named capture group
-- beware: no implicit matching without a capture group ❗️
-
 ```
-"a"
+"hello world"
 ```
 
 ```
-^(a)$
-```
-
-- select exactly matches that wants
-- doesn't return whole
-- no equivalent in regex, always matches the whole
-
-```
-"a";
-"b"
-"c";
-```
-
-```
-// minus whole match, i.e. only "b"
-^a(b)c$
+^(hello world)$
 ```
 
 
 
 ## Named match
 
-- named match
-- like regex named capture group
-
 ```
-"a" @ m1
+"hello world" @ hw
 ```
 
 ```
-^(?<m1>a)$
+^(?'hw'hello world)$
 ```
 
 
 
-## Start and end
+## Grouping
 
-- opt-in to anywhere instead of opt-out
-- `any * ..` at both the beginning and end to match in middle
+- e.g. IPv4 address
 
 ```
-any * ..;
-"a"
-any * ..;
+{
+  {
+    digit * 1..3;
+    ".";
+  } * 3;
+
+  digit * 1..3;
+}
+```
+
+```
+^((?:\d{1,3}\.){3}\d{1,3})$
+```
+
+
+
+## Multiple matches
+
+```
+{
+ any * ..;
+ "a"
+ any * ..;
+} * ..;
 ```
 
 ```
 (a)
 ```
 
-- `any * ..` at the beginning to match at end
+
+
+## Followed by
 
 ```
+"foo"
+"bar";
+```
+
+```
+^(foo(?=bar))$
+```
+
+
+
+## Ends in
+
+```
+"foo"
 any * ..;
-"a"
+"bar";
 ```
 
 ```
-(a)$
+^(foo(?=.*bar))$
 ```
 
-- `any * ..` at the end to match at beginning
+
+
+## Preceeded by
 
 ```
-"a"
+"foo";
+"bar"
+```
+
+```
+^((?<=foo)bar)$
+```
+
+
+
+## Beginns in
+
+<!-- todo: currently invalid regex?! -->
+
+```
+"foo";
 any * ..;
+"bar"
 ```
 
 ```
-^(a)
+^((?<=foo.*)bar)$
 ```
 
-- uses block repetition and greedy default, i.e. `any * ..` eats as much of the input string as it can
 
 
-
-## Repetition
-
-- explicit repetition
+## Contains
 
 ```
-"a" * 3
-```
+{
+  any * ..;
+  "foobar";
+  any * ..;
+} = hasFoobar;
 
-```
-^(a)(a)(a)$
-```
-
-- ranges
-
-```
-"a" * 1..3
+hasFoobar ? any * ..
 ```
 
 ```
-^(a){1,3}$
+^((?=foobar).+)$
 ```
 
-- shorthand ranges for either end
-- similar to regex
-- except no shorthand for `1..`
+
+
+## Contains
+
+<!-- todo: currently invalid regex?! -->
 
 ```
-"a" * ..
-```
-
-```
-^(a)*
+^(foo(?<=bar.*))$
 ```
