@@ -11,6 +11,7 @@ index: 7
 - for multiple "if"s uses first one that works, short-circuit
 - use nested "if"s to continue on a given code path instead of consecutive "if"s
 - replaces regex lookahead, lookbehind, conditional statement, or, lookahead conditional, lookbehind conditional, etc.
+- beware: engine needs to do two passes, first for condition, second for branch ❗️
 
 
 

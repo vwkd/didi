@@ -10,6 +10,7 @@ index: 5
 - has inferred type, no type annotations
 - statically typed, can only be used where type can be used
 - implementation uses simple substitution
+- can use as shorter alias
 
 
 
