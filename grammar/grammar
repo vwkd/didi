@@ -2,7 +2,6 @@
 
 Program
     cw
-    cw Declarations cw
     cw Operations cw
     cw Declarations cw Operations cw
 
